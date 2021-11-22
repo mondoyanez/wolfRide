@@ -26,6 +26,15 @@ namespace wolfRideApp
             {
                 MessageBox.Show("Must enter in a Username or Password");
             }
+
+            var database = new SqlServerDataRepository();
+
+            var credential = database.GetCredential(username);
+
+            if (credential.Password.Equals(password))
+            {
+                MessageBox.Show("You entered the right password!");
+            }
         }
     }
 }

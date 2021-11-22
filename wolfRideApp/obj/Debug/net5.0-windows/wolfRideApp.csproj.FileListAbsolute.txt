@@ -16,3 +16,10 @@ C:\Users\ayane\Desktop\work\School\Fall 2021\CS364\wolfRide\wolfRideApp\obj\Debu
 C:\Users\ayane\Desktop\work\School\Fall 2021\CS364\wolfRide\wolfRideApp\obj\Debug\net5.0-windows\ref\wolfRideApp.dll
 C:\Users\ayane\Desktop\work\School\Fall 2021\CS364\wolfRide\wolfRideApp\obj\Debug\net5.0-windows\wolfRideApp.pdb
 C:\Users\ayane\Desktop\work\School\Fall 2021\CS364\wolfRide\wolfRideApp\obj\Debug\net5.0-windows\wolfRideApp.genruntimeconfig.cache
+C:\Users\ayane\Desktop\work\School\Fall 2021\CS364\wolfRide\wolfRideApp\bin\Debug\net5.0-windows\System.Data.SqlClient.dll
+C:\Users\ayane\Desktop\work\School\Fall 2021\CS364\wolfRide\wolfRideApp\bin\Debug\net5.0-windows\runtimes\win-arm64\native\sni.dll
+C:\Users\ayane\Desktop\work\School\Fall 2021\CS364\wolfRide\wolfRideApp\bin\Debug\net5.0-windows\runtimes\win-x64\native\sni.dll
+C:\Users\ayane\Desktop\work\School\Fall 2021\CS364\wolfRide\wolfRideApp\bin\Debug\net5.0-windows\runtimes\win-x86\native\sni.dll
+C:\Users\ayane\Desktop\work\School\Fall 2021\CS364\wolfRide\wolfRideApp\bin\Debug\net5.0-windows\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\ayane\Desktop\work\School\Fall 2021\CS364\wolfRide\wolfRideApp\bin\Debug\net5.0-windows\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\ayane\Desktop\work\School\Fall 2021\CS364\wolfRide\wolfRideApp\obj\Debug\net5.0-windows\wolfRideApp.csproj.CopyComplete

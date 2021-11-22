@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,10 +12,10 @@ namespace wolfRideApp
     {
         void AddCredential(Credential credential);
 
-        Credential GetCreditial(string UserName);
+        Credential GetCredential(string username);
 
-        IEnumerable<Credential> GetPasswords();
+        IEnumerable<Credential> GetCredentials();
 
-        void DeleteCreditial(string UserName);
+        void DeleteCredential(string username);
     }
 }

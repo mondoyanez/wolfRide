@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Rvn1NSkoJQ9ctoY5wv4Z70wqnfFCfWfYHstwh62BKMb1KWP0SQeFbiIsF8zxGdqHhgvgrgpt4ygWPbn/9rKWyw==",
+  "dgSpecHash": "MksbGPCJ6mt3/9KP/M84wFtz/q+kAzLH8sgeI5Wio8tBlfw37UXJKGVA9Q1lEFFb0H7jSm0B2ymWtA6kL+0hnA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ayane\\Desktop\\work\\School\\Fall 2021\\CS364\\wolfRide\\wolfRideApp\\wolfRideApp.csproj",
+  "projectFilePath": "C:\\Users\\ayane\\Desktop\\work\\School\\Fall 2021\\CS364\\wolfRide\\WolfRideApp\\wolfRideApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ayane\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\ayane\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",

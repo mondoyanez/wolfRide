@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ayane\\Desktop\\work\\School\\Fall 2021\\CS364\\wolfRide\\wolfRideApp\\wolfRideApp.csproj": {}
+    "C:\\Users\\ayane\\Desktop\\work\\School\\Fall 2021\\CS364\\wolfRide\\WolfRideApp\\wolfRideApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ayane\\Desktop\\work\\School\\Fall 2021\\CS364\\wolfRide\\wolfRideApp\\wolfRideApp.csproj": {
+    "C:\\Users\\ayane\\Desktop\\work\\School\\Fall 2021\\CS364\\wolfRide\\WolfRideApp\\wolfRideApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ayane\\Desktop\\work\\School\\Fall 2021\\CS364\\wolfRide\\wolfRideApp\\wolfRideApp.csproj",
+        "projectUniqueName": "C:\\Users\\ayane\\Desktop\\work\\School\\Fall 2021\\CS364\\wolfRide\\WolfRideApp\\wolfRideApp.csproj",
         "projectName": "wolfRideApp",
-        "projectPath": "C:\\Users\\ayane\\Desktop\\work\\School\\Fall 2021\\CS364\\wolfRide\\wolfRideApp\\wolfRideApp.csproj",
+        "projectPath": "C:\\Users\\ayane\\Desktop\\work\\School\\Fall 2021\\CS364\\wolfRide\\WolfRideApp\\wolfRideApp.csproj",
         "packagesPath": "C:\\Users\\ayane\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ayane\\Desktop\\work\\School\\Fall 2021\\CS364\\wolfRide\\wolfRideApp\\obj\\",
+        "outputPath": "C:\\Users\\ayane\\Desktop\\work\\School\\Fall 2021\\CS364\\wolfRide\\WolfRideApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

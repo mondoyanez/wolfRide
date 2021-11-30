@@ -111,13 +111,17 @@ INSERT INTO Locale(City, StateID)
 VALUES ('McMinnville', 1), ('Newberg', 1), ('Portland', 1), ('Monmouth', 1), ('Salem', 1), ('Woodburn', 1), ('Tualatin', 1), ('Eugene', 1), ('Lake Oswego', 1), ('Oregon City', 1);
 
 INSERT INTO Zip
-VALUES (97128), (97132), (97035), (97361), (97301), (97071), (97062), (97401), (97034), (97045);
+VALUES (97128), (97132), (97202), (97361), (97301), (97071), (97062), (97401), (97034), (97045);
 
 INSERT INTO MakeModel
 VALUES ('Tesla', 'Model S'), ('Ford', 'Taurus'), ('BMW','3 Series'), ('Chevrolet','Malibu'), ('Mercedes-Benz','CLA 250 4MATIC COUPE');
 
 INSERT INTO Vehicle
 VALUES ('647-LKC', 2), ('281-OJE', 4), ('903-KVM', 5), ('124-ETM', 1), ('361-OZP', 3), ('201-NNI', 4), ('579-ALC', 2), ('685-RDX', 3), ('458-JJW', 1), ('662-HSM', 5);
+
+INSERT INTO Address(Line1, Line2, LocaleID, ZipID)
+VALUES ('230 NW 19th St', '', 1, 1), ('520 E Michelle Ct', '', 2, 2), ('3608 SE Center St', '', 3, 3), ('110 Craven St S', '', 4, 4), ('3327 Rockingham Ct NE', '', 5 ,5),
+('858 Ostrom Dr', '', 6, 6), ('7119 SW Sagert St', 'Unit 104', 7, 7), ('1478 Pearl St', '', 8, 8), ('668 McVey Ave', 'Unit 31', 9, 9), ('705 9th St', '', 10, 10);
 
 SELECT * FROM Credentials;
 SELECT * FROM UserType;
@@ -128,5 +132,6 @@ SELECT * FROM Locale;
 SELECT * FROM Zip;
 SELECT * FROM MakeModel;
 SELECT * FROM Vehicle;
+SELECT * FROM [Address];
 
 DROP TABLE [Credentials], [Address], Locale, MakeModel, PaymentStatus, Ride, RideStatus, [User], UserType, Vehicle, Zip, [State];

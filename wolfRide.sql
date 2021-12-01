@@ -22,11 +22,6 @@ CREATE TABLE RideStatus (
 	RideStatus VARCHAR(256)
 );
 
-CREATE TABLE PaymentStatus (
-	PaymentStatusID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-	PaymentStatus VARCHAR(256)
-);
-
 CREATE TABLE MakeModel (
 	MakeModelID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 	Make VARCHAR(256),
@@ -133,7 +128,6 @@ VALUES ('Armando Yanez', '847-364-4431', 'armandoyanez@yahoo.com', 200, 7, 1, 'M
 
 SELECT * FROM Credentials;
 SELECT * FROM UserType;
-SELECT * FROM PaymentStatus;
 SELECT * FROM [State];
 SELECT * FROM Locale;
 SELECT * FROM Zip;
@@ -142,4 +136,4 @@ SELECT * FROM Vehicle;
 SELECT * FROM [Address];
 SELECT * FROM [User];
 
-DROP TABLE [Credentials], [Address], Locale, MakeModel, PaymentStatus, Ride, [User], UserType, Vehicle, Zip, [State];
+DROP TABLE [Credentials], [Address], Locale, MakeModel, Ride, [User], UserType, Vehicle, Zip, [State];

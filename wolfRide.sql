@@ -14,7 +14,7 @@ CREATE TABLE [Credentials] (
 
 CREATE TABLE UserType (
 	UserTypeID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-	UserType VarChar(8)
+	UserType VarChar(64)
 );
 
 CREATE TABLE RideStatus (
@@ -77,7 +77,6 @@ CREATE TABLE [User] (
 	CredentialsID VARCHAR(256) FOREIGN KEY REFERENCES Credentials(UserName)
 );
 
--- Payment status may not be necessary if always paid in full so just waste of space
 CREATE TABLE Ride (
 	RideID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 	NumOfPassengers INT,
@@ -88,7 +87,6 @@ CREATE TABLE Ride (
 	Rider INT FOREIGN KEY REFERENCES [USER](UserID),
 	Driver INT FOREIGN KEY REFERENCES [USER](UserID),
 	RideStatus INT FOREIGN KEY REFERENCES RideStatus(RideStatusID),
-	PaymentStatus INT FOREIGN KEY REFERENCES PaymentStatus(PaymentStatusID)
 );
 
 INSERT INTO Credentials
@@ -97,15 +95,10 @@ VALUES ('Mondoyanez', 'Password!'), ('Peteparker', 'FriendlyNeighborhood'), ('RB
 ('HengBlue','rindingKeep'),('KwadwoHerbert','historyYellow'),('AoalsteinnYeung','steelBlock');
 
 INSERT INTO UserType
-VALUES ('Rider'), ('Driver'), ('Admin');
+VALUES ('Rider'), ('Driver'), ('User/Driver'), ('Admin'), ('User/Admin'), ('Driver/Admin'), ('User/Driver/Admin');
 
 INSERT INTO RideStatus
 VALUES ('Awaiting pickup'), ('In Progress'), ('Completed');
-
--- Considering removing awaiting payment because if balance is 0 can't get ride
--- so will always be paid in full
-INSERT INTO PaymentStatus
-VALUES ('Awaiting Payment'),('Paid in Full');
 
 INSERT INTO [State]
 VALUES ('OR');
@@ -127,20 +120,19 @@ VALUES ('230 NW 19th St', '', 1, 1), ('520 E Michelle Ct', '', 2, 2), ('3608 SE 
 ('858 Ostrom Dr', '', 6, 6), ('7119 SW Sagert St', 'Unit 104', 7, 7), ('1478 Pearl St', '', 8, 8), ('668 McVey Ave', 'Unit 31', 9, 9), ('705 9th St', '', 10, 10);
 
 INSERT INTO [User]
-VALUES ('Armando Yanez', '847-364-4431', 'armandoyanez@yahoo.com', 0, 3, 1, 'Mondoyanez'),
+VALUES ('Armando Yanez', '847-364-4431', 'armandoyanez@yahoo.com', 200, 7, 1, 'Mondoyanez'),
 ('Peter Parker', '753-278-8064', 'peterparker@gmail.com', 100, 2, 2, 'Peteparker'),
-('Richard Bicchieri', '906-681-7333', 'richBicchieri@msn.com', 92, 2, 3, 'RBicchieri'),
+('Richard Bicchieri', '906-681-7333', 'richBicchieri@msn.com', 92, 3, 3, 'RBicchieri'),
 ('Annette Whitney', '486-494-4958', 'annWhitney@yahoo.com', 122, 1, 4, 'AnnetteWhitney'),
 ('Noach Fay', '726-847-4723', 'nFay@yahoo.com', 100, 1, 5, 'NoachFay'),
 ('Othman Wiegand', '855-796-8426', 'OthmanWiegand@gmail.com', 120, 1, 6, 'OthmanWiegand'),
 ('Fearghas Hagen', '800-870-6253', 'FearghasHagen@yahoo.com', 72, 1, 7, 'FearghasHagen'),
-('Heng Blue', '859-394-5230', 'HengBlue@msn.com', 96, 1, 8, 'HengBlue'),
+('Heng Blue', '859-394-5230', 'HengBlue@msn.com', 96, 3, 8, 'HengBlue'),
 ('Kwadwo Herbert', '497-504-5577', 'KwadwoHerbert@yahoo.com', 106, 1, 9, 'KwadwoHerbert'),
 ('Aoalsteinn Yeung', '865-449-8345', 'AoalsteinnYeung@gmail.com', 112, 1, 10, 'AoalsteinnYeung');
 
 SELECT * FROM Credentials;
 SELECT * FROM UserType;
-SELECT * FROM RideStatus;
 SELECT * FROM PaymentStatus;
 SELECT * FROM [State];
 SELECT * FROM Locale;
@@ -150,4 +142,4 @@ SELECT * FROM Vehicle;
 SELECT * FROM [Address];
 SELECT * FROM [User];
 
-DROP TABLE [Credentials], [Address], Locale, MakeModel, PaymentStatus, Ride, RideStatus, [User], UserType, Vehicle, Zip, [State];
+DROP TABLE [Credentials], [Address], Locale, MakeModel, PaymentStatus, Ride, [User], UserType, Vehicle, Zip, [State];

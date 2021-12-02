@@ -19,9 +19,12 @@ namespace wolfRideApp
 
                 connection.Open();
 
-                var sql = "INSERT INTO Credentials (UserName, [Password]) VALUES (@usernName, @password);";
+                //var stateSql = "INSERT INTO [State] VALUES (@state);";
+                //var command = new SqlCommand(stateSql, connection);
+                //command.Parameters.Add(new SqlParameter("@state", credential.);
 
-                var command = new SqlCommand(sql, connection);
+                var credSql = "INSERT INTO Credentials (UserName, [Password]) VALUES (@usernName, @password);";
+                var command = new SqlCommand(credSql, connection);
                 command.Parameters.Add(new SqlParameter("@userName", credential.UserName));
                 command.Parameters.Add(new SqlParameter("@password", credential.Password));
 

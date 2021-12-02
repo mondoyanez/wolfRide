@@ -26,15 +26,30 @@ namespace wolfRideApp
             {
                 MessageBox.Show("Must enter in a Username or Password");
             }
-
-            var database = new SqlServerDataRepository();
-
-            var credential = database.GetCredential(username);
-
-            if (credential.Password.Equals(password))
+            else
             {
-                MessageBox.Show("You entered the right password!");
+                var database = new SqlServerDataRepository();
+
+                var credential = database.GetCredential(username);
+
+                if (credential.Password.Equals(password))
+                {
+                    MessageBox.Show("You are at the home screen.");
+                }
+                else
+                {
+                    MessageBox.Show("Incorrect password");
+                }
             }
+            
+        }
+
+        private void btnCreateAccount_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            createAccount f2 = new createAccount();
+            f2.ShowDialog();
+            this.Close();
         }
     }
 }

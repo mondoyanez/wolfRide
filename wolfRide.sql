@@ -79,9 +79,10 @@ CREATE TABLE Ride (
 	PickupTime TIME,
 	Destination VARCHAR(256),
 
-	Rider INT FOREIGN KEY REFERENCES [USER](UserID),
-	Driver INT FOREIGN KEY REFERENCES [USER](UserID),
-	RideStatus INT FOREIGN KEY REFERENCES RideStatus(RideStatusID),
+	Rider INT FOREIGN KEY REFERENCES [User](UserID),
+	Driver INT FOREIGN KEY REFERENCES [User](UserID),
+	VehicleID INT FOREIGN KEY REFERENCES [Vehicle](VehicleID),
+	RideStatus INT FOREIGN KEY REFERENCES RideStatus(RideStatusID)
 );
 
 INSERT INTO Credentials
@@ -144,4 +145,5 @@ SELECT U.FullName, UT.UserType FROM [User] AS U, UserType AS UT
 WHERE U.UserTypeID = UT.UserTypeID;
 
 
-DROP TABLE [Credentials], [Address], Locale, MakeModel, PaymentStatus, Ride, [User], UserType, Vehicle, Zip, [State], RideStatus;
+DROP TABLE [Credentials], [Address], Locale, MakeModel, Ride, [User], UserType, Vehicle, Zip, [State], RideStatus;
+

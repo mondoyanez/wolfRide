@@ -24,18 +24,32 @@ namespace wolfRideApp
             var phone = txtbx_Phone.Text;
             var line1 = txtbx_Line1.Text;
             var line2 = txtbx_line2.Text;
-            var state = txtbx_State.Text;
+            var state = (txtbx_State.Text).ToUpper();
+            var city = txtbx_City.Text;
             var zip = txtbx_Zip.Text;
             var username = txtbx_Username.Text;
             var password = txtbx_Password.Text;
 
-            if (name.Equals(string.Empty) || email.Equals(string.Empty) || phone.Equals(string.Empty) || line1.Equals(string.Empty) || state.Equals(string.Empty)
-                || zip.Equals(string.Empty) || username.Equals(string.Empty) || password.Equals(string.Empty))
+            if (name.Equals(string.Empty) || email.Equals(string.Empty) || phone.Equals(string.Empty) || line1.Equals(string.Empty) || city.Equals(string.Empty)
+                || state.Equals(string.Empty) || zip.Equals(string.Empty) || username.Equals(string.Empty) || password.Equals(string.Empty))
             {
                 MessageBox.Show("Please complete all required fields.");
             }
             else
             {
+                var credential = new Credential();
+                
+                credential.FullName = name;
+                credential.Email = email;
+                credential.Phone = phone;
+                credential.Line1 = line1;
+                credential.Line2 = line2;
+                credential.City = city;
+                credential.State = state;
+                credential.Zip = zip;
+                credential.UserName = username;
+                credential.Password = password;
+
                 this.Hide();
                 Form1 f1 = new Form1();
                 f1.ShowDialog();

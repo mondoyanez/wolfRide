@@ -48,13 +48,14 @@ namespace wolfRideApp
             this.txtbx_Username = new System.Windows.Forms.TextBox();
             this.txtbx_Password = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.txtbx_City = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // txtCA_Name
             // 
             this.txtCA_Name.AutoSize = true;
-            this.txtCA_Name.Location = new System.Drawing.Point(179, 82);
+            this.txtCA_Name.Location = new System.Drawing.Point(96, 92);
             this.txtCA_Name.Name = "txtCA_Name";
             this.txtCA_Name.Size = new System.Drawing.Size(42, 15);
             this.txtCA_Name.TabIndex = 0;
@@ -63,7 +64,7 @@ namespace wolfRideApp
             // txtCA_Email
             // 
             this.txtCA_Email.AutoSize = true;
-            this.txtCA_Email.Location = new System.Drawing.Point(182, 124);
+            this.txtCA_Email.Location = new System.Drawing.Point(99, 134);
             this.txtCA_Email.Name = "txtCA_Email";
             this.txtCA_Email.Size = new System.Drawing.Size(39, 15);
             this.txtCA_Email.TabIndex = 1;
@@ -72,7 +73,7 @@ namespace wolfRideApp
             // txtCA_Phone
             // 
             this.txtCA_Phone.AutoSize = true;
-            this.txtCA_Phone.Location = new System.Drawing.Point(130, 171);
+            this.txtCA_Phone.Location = new System.Drawing.Point(47, 181);
             this.txtCA_Phone.Name = "txtCA_Phone";
             this.txtCA_Phone.Size = new System.Drawing.Size(91, 15);
             this.txtCA_Phone.TabIndex = 2;
@@ -81,7 +82,7 @@ namespace wolfRideApp
             // txtCA_Address
             // 
             this.txtCA_Address.AutoSize = true;
-            this.txtCA_Address.Location = new System.Drawing.Point(169, 225);
+            this.txtCA_Address.Location = new System.Drawing.Point(86, 227);
             this.txtCA_Address.Name = "txtCA_Address";
             this.txtCA_Address.Size = new System.Drawing.Size(52, 15);
             this.txtCA_Address.TabIndex = 3;
@@ -90,7 +91,7 @@ namespace wolfRideApp
             // txtCA_Username
             // 
             this.txtCA_Username.AutoSize = true;
-            this.txtCA_Username.Location = new System.Drawing.Point(158, 278);
+            this.txtCA_Username.Location = new System.Drawing.Point(75, 276);
             this.txtCA_Username.Name = "txtCA_Username";
             this.txtCA_Username.Size = new System.Drawing.Size(63, 15);
             this.txtCA_Username.TabIndex = 4;
@@ -99,7 +100,7 @@ namespace wolfRideApp
             // txtCA_Password
             // 
             this.txtCA_Password.AutoSize = true;
-            this.txtCA_Password.Location = new System.Drawing.Point(161, 337);
+            this.txtCA_Password.Location = new System.Drawing.Point(78, 335);
             this.txtCA_Password.Name = "txtCA_Password";
             this.txtCA_Password.Size = new System.Drawing.Size(60, 15);
             this.txtCA_Password.TabIndex = 5;
@@ -127,7 +128,7 @@ namespace wolfRideApp
             // 
             // txtbx_Name
             // 
-            this.txtbx_Name.Location = new System.Drawing.Point(250, 82);
+            this.txtbx_Name.Location = new System.Drawing.Point(167, 92);
             this.txtbx_Name.Name = "txtbx_Name";
             this.txtbx_Name.PlaceholderText = "Bob Johns";
             this.txtbx_Name.Size = new System.Drawing.Size(234, 23);
@@ -135,7 +136,7 @@ namespace wolfRideApp
             // 
             // txtbx_Email
             // 
-            this.txtbx_Email.Location = new System.Drawing.Point(250, 124);
+            this.txtbx_Email.Location = new System.Drawing.Point(167, 134);
             this.txtbx_Email.Name = "txtbx_Email";
             this.txtbx_Email.PlaceholderText = "BobJohns@mail.com";
             this.txtbx_Email.Size = new System.Drawing.Size(234, 23);
@@ -143,7 +144,7 @@ namespace wolfRideApp
             // 
             // txtbx_Phone
             // 
-            this.txtbx_Phone.Location = new System.Drawing.Point(250, 168);
+            this.txtbx_Phone.Location = new System.Drawing.Point(167, 178);
             this.txtbx_Phone.Name = "txtbx_Phone";
             this.txtbx_Phone.PlaceholderText = "123-456-7890";
             this.txtbx_Phone.Size = new System.Drawing.Size(234, 23);
@@ -151,7 +152,7 @@ namespace wolfRideApp
             // 
             // txtbx_Line1
             // 
-            this.txtbx_Line1.Location = new System.Drawing.Point(250, 225);
+            this.txtbx_Line1.Location = new System.Drawing.Point(167, 227);
             this.txtbx_Line1.Name = "txtbx_Line1";
             this.txtbx_Line1.PlaceholderText = "123 NE Something St";
             this.txtbx_Line1.Size = new System.Drawing.Size(234, 23);
@@ -159,7 +160,7 @@ namespace wolfRideApp
             // 
             // txtbx_line2
             // 
-            this.txtbx_line2.Location = new System.Drawing.Point(490, 225);
+            this.txtbx_line2.Location = new System.Drawing.Point(407, 227);
             this.txtbx_line2.Name = "txtbx_line2";
             this.txtbx_line2.PlaceholderText = "Apt 320";
             this.txtbx_line2.Size = new System.Drawing.Size(77, 23);
@@ -167,7 +168,7 @@ namespace wolfRideApp
             // 
             // txtbx_State
             // 
-            this.txtbx_State.Location = new System.Drawing.Point(573, 225);
+            this.txtbx_State.Location = new System.Drawing.Point(608, 227);
             this.txtbx_State.Name = "txtbx_State";
             this.txtbx_State.PlaceholderText = "NY";
             this.txtbx_State.Size = new System.Drawing.Size(77, 23);
@@ -175,7 +176,7 @@ namespace wolfRideApp
             // 
             // txtbx_Zip
             // 
-            this.txtbx_Zip.Location = new System.Drawing.Point(656, 225);
+            this.txtbx_Zip.Location = new System.Drawing.Point(691, 227);
             this.txtbx_Zip.Name = "txtbx_Zip";
             this.txtbx_Zip.PlaceholderText = "10001";
             this.txtbx_Zip.Size = new System.Drawing.Size(77, 23);
@@ -183,14 +184,14 @@ namespace wolfRideApp
             // 
             // txtbx_Username
             // 
-            this.txtbx_Username.Location = new System.Drawing.Point(250, 278);
+            this.txtbx_Username.Location = new System.Drawing.Point(167, 276);
             this.txtbx_Username.Name = "txtbx_Username";
             this.txtbx_Username.Size = new System.Drawing.Size(234, 23);
             this.txtbx_Username.TabIndex = 15;
             // 
             // txtbx_Password
             // 
-            this.txtbx_Password.Location = new System.Drawing.Point(250, 329);
+            this.txtbx_Password.Location = new System.Drawing.Point(167, 327);
             this.txtbx_Password.Name = "txtbx_Password";
             this.txtbx_Password.PasswordChar = '*';
             this.txtbx_Password.Size = new System.Drawing.Size(234, 23);
@@ -205,12 +206,21 @@ namespace wolfRideApp
             this.pictureBox1.TabIndex = 17;
             this.pictureBox1.TabStop = false;
             // 
+            // txtbx_City
+            // 
+            this.txtbx_City.Location = new System.Drawing.Point(490, 227);
+            this.txtbx_City.Name = "txtbx_City";
+            this.txtbx_City.PlaceholderText = "Manhattan";
+            this.txtbx_City.Size = new System.Drawing.Size(112, 23);
+            this.txtbx_City.TabIndex = 18;
+            // 
             // createAccount
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.txtbx_City);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.txtbx_Password);
             this.Controls.Add(this.txtbx_Username);
@@ -257,5 +267,6 @@ namespace wolfRideApp
         private System.Windows.Forms.TextBox txtbx_Username;
         private System.Windows.Forms.TextBox txtbx_Password;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TextBox txtbx_City;
     }
 }

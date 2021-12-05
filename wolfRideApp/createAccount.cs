@@ -38,7 +38,8 @@ namespace wolfRideApp
             else
             {
                 var credential = new Credential();
-                
+                var database = new SqlServerDataRepository();
+
                 credential.FullName = name;
                 credential.Email = email;
                 credential.Phone = phone;
@@ -49,6 +50,8 @@ namespace wolfRideApp
                 credential.Zip = zip;
                 credential.UserName = username;
                 credential.Password = password;
+
+                database.AddCredential(credential);
 
                 this.Hide();
                 Form1 f1 = new Form1();

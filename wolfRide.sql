@@ -138,12 +138,5 @@ SELECT * FROM [Address];
 SELECT * FROM [User];
 SELECT * FROM RideStatus;
 
-SELECT U.FullName, UT.UserType FROM [User] AS U, UserType AS UT
-WHERE U.UserTypeID = UT.UserTypeID AND U.UserTypeID > 1;
-
-SELECT U.FullName, UT.UserType FROM [User] AS U, UserType AS UT
-WHERE U.UserTypeID = UT.UserTypeID;
-
-
 DROP TABLE [Credentials], [Address], Locale, MakeModel, Ride, [User], UserType, Vehicle, Zip, [State], RideStatus;
 

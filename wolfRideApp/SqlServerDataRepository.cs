@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Windows.Forms;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
@@ -16,82 +18,215 @@ namespace wolfRideApp
             try
             {
                 var connection = new SqlConnection(_connectionString);
-
                 connection.Open();
 
-                var sql = "INSERT INTO Credentials (UserName, [Password]) VALUES (@usernName, @password);";
-                var refCredentials = "SELECT UserName FROM Credentials WHERE UserName = @userName";
-                var command = new SqlCommand(sql, connection);
-                command.Parameters.Add(new SqlParameter("@userName", credential.UserName));
-                command.Parameters.Add(new SqlParameter("@password", credential.Password));
-                var numberOfRowsReturned = command.ExecuteNonQuery();
+                // Add credential to credentials database
+                var command = new SqlCommand();
+                command.Connection = connection;
 
-                if (numberOfRowsReturned != 1)
-                    throw new Exception("Insert didn't work");
+                var refCredUserName = "0";
+                
+                var PmtrUserName = new SqlParameter("@userName", SqlDbType.VarChar);
+                PmtrUserName.Direction = ParameterDirection.Input;
 
+                var PmtrPassword = new SqlParameter("@password", SqlDbType.VarChar);
+                PmtrPassword.Direction = ParameterDirection.Input;
 
-                var refState = "SELECT StateID FROM [State] WHERE [State] = @state";
-                command = new SqlCommand(sql, connection);
-                command.Parameters.Add(new SqlParameter("@state", credential.State));
+                command.Parameters.Add(PmtrUserName);
+                command.Parameters.Add(PmtrPassword);
 
-                if (refState.Equals(string.Empty))
+                PmtrUserName.Value = credential.UserName;
+                PmtrPassword.Value = credential.Password;
+
+                command.CommandText = "INSERT INTO Credentials VALUES (@userName, @password)";
+                command.ExecuteNonQuery();
+
+                refCredUserName = PmtrUserName.Value.ToString();
+
+                // Check if state entered is already in state database and if not insert it
+                var refStateString = "0";
+
+                var PmtrStateName = new SqlParameter("@state", SqlDbType.VarChar);
+                PmtrStateName.Direction = ParameterDirection.Input;
+
+                var PmtrStateID = new SqlParameter("@stateID", SqlDbType.Int);
+                PmtrStateID.Direction = ParameterDirection.Output;
+
+                command.Parameters.Add(PmtrStateID);
+                command.Parameters.Add(PmtrStateName);
+
+                PmtrStateName.Value = credential.State;
+                PmtrStateID.Value = refStateString;
+
+                command.CommandText = "SELECT @stateID = StateID FROM [State] WHERE [State] = @state";
+                command.ExecuteNonQuery();
+
+                refStateString = PmtrStateID.Value.ToString();
+
+                if (refStateString.Equals(String.Empty))
                 {
-                    sql = "INSERT INTO [State] VALUES (@state);";
-                    refState = "SELECT StateID FROM [State] WHERE [State] = @state";
-                    command = new SqlCommand(sql, connection);
-                    command.Parameters.Add(new SqlParameter("@state", credential.State));
+                    command.CommandText = "INSERT INTO [State] VALUES (@state)";
+                    command.ExecuteNonQuery();
+                    command.CommandText = "SELECT @stateID = StateID FROM [State] WHERE [State] = @state";
+                    command.ExecuteNonQuery();
+                    refStateString = PmtrStateID.Value.ToString();
                 }
 
-                var refLocale = "SELECT LocaleID FROM Locale WHERE City = @city";
-                command = new SqlCommand(sql, connection);
-                command.Parameters.Add(new SqlParameter("@city", credential.City));
+                var refState = Convert.ToInt32(refStateString);
 
-                if (refLocale.Equals(string.Empty))
+                // Check if Locale already exists and if not insert
+                var refLocaleString = "0";
+
+                var PmtrLocaleCity = new SqlParameter("@city", SqlDbType.VarChar);
+                PmtrLocaleCity.Direction = ParameterDirection.Input;
+
+                var PmtrLocaleState = new SqlParameter("@localeStateID", SqlDbType.Int);
+                PmtrLocaleState.Direction = ParameterDirection.Input;
+
+                var PmtrLocaleLocaleID = new SqlParameter("@localeID", SqlDbType.Int);
+                PmtrLocaleLocaleID.Direction = ParameterDirection.Output;
+
+                command.Parameters.Add(PmtrLocaleLocaleID);
+                command.Parameters.Add(PmtrLocaleCity);
+                command.Parameters.Add(PmtrLocaleState);
+
+                PmtrLocaleLocaleID.Value = refLocaleString;
+                PmtrLocaleCity.Value = credential.City;
+                PmtrLocaleState.Value = refState;
+
+                command.CommandText = "SELECT @localeID = LocaleID FROM Locale WHERE City = @city";
+                command.ExecuteNonQuery();
+
+                refLocaleString = PmtrLocaleLocaleID.Value.ToString();
+
+                if(refLocaleString.Equals(String.Empty))
                 {
-                    sql = "INSERT INTO Locale VALUES (@city, @stateID);";
-                    refState = "SELECT LocaleID FROM Locale WHERE City = @city";
-                    command = new SqlCommand(sql, connection);
-                    command.Parameters.Add(new SqlParameter("@city", credential.City));
-                    command.Parameters.Add(new SqlParameter("@stateID", refState));
+                    command.CommandText = "INSERT INTO Locale VALUES (@city, @localeStateID)";
+                    command.ExecuteNonQuery();
+                    command.CommandText = "SELECT @localeID = LocaleID FROM Locale WHERE City = @city";
+                    command.ExecuteNonQuery();
+                    refLocaleString = PmtrLocaleLocaleID.Value.ToString();
                 }
 
-                var refZip = "SELECT ZipID FROM Zip WHERE ZipCode = @zip";
-                command = new SqlCommand(sql, connection);
-                command.Parameters.Add(new SqlParameter("@zip", credential.Zip));
+                var refLocale = Convert.ToInt32(refLocaleString);
 
-                if (refZip.Equals(string.Empty))
+                // check for zip and if it doesn't exist insert zip into Zip table
+                var refZipString = "0";
+
+                var PmtrZipCode = new SqlParameter("@zip", SqlDbType.Int);
+                PmtrZipCode.Direction = ParameterDirection.Input;
+
+                var PmtrZipID = new SqlParameter("@zipID", SqlDbType.Int);
+                PmtrZipID.Direction = ParameterDirection.Output;
+
+                command.Parameters.Add(PmtrZipID);
+                command.Parameters.Add(PmtrZipCode);
+
+                PmtrZipCode.Value = credential.Zip;
+                PmtrZipID.Value = refZipString;
+
+                command.CommandText = "SELECT @zipID = ZipID FROM Zip WHERE ZipCode = @zip";
+                command.ExecuteNonQuery();
+
+                refZipString = PmtrZipID.Value.ToString();
+
+                if(refZipString.Equals(String.Empty))
                 {
-                    sql = "INSERT INTO Zip VALUES (@zip);";
-                    refZip = "SELECT ZipID FROM Zip WHERE ZipCode = @zip";
-                    command = new SqlCommand(sql, connection);
-                    command.Parameters.Add(new SqlParameter("@zip", credential.Zip));
+                    command.CommandText = "INSERT INTO Zip VALUES(@zip)";
+                    command.ExecuteNonQuery();
+                    command.CommandText = "SELECT @zipID = ZipID FROM Zip WHERE ZipCode = @zip";
+                    command.ExecuteNonQuery();
+                    refZipString = PmtrZipID.Value.ToString();
                 }
 
-                var refAddress = "SELECT AddressID FROM Address WHERE Line1 = @line1";
-                command = new SqlCommand(sql, connection);
-                command.Parameters.Add(new SqlParameter("@line1", credential.Line1));
+                var refZip = Convert.ToInt32(refZipString);
 
-                if (refAddress.Equals(string.Empty))
+                // check address and if address does not exist insert address into Address table
+                var refAddressString = "0";
+
+                var PmtrLine1 = new SqlParameter("@line1", SqlDbType.VarChar);
+                PmtrLine1.Direction = ParameterDirection.Input;
+
+                var PmtrLine2 = new SqlParameter("@line2", SqlDbType.VarChar);
+                PmtrLine2.Direction = ParameterDirection.Input;
+
+                var PmtrAddressLocaleID = new SqlParameter("@addressLocaleID", SqlDbType.Int);
+                PmtrAddressLocaleID.Direction = ParameterDirection.Input;
+
+                var PmtrAddressZipID = new SqlParameter("@addressZipID", SqlDbType.Int);
+                PmtrAddressZipID.Direction = ParameterDirection.Input;
+
+                var PmtrAddressAddressID = new SqlParameter("@addressID", SqlDbType.Int);
+                PmtrAddressAddressID.Direction = ParameterDirection.Output;
+
+                command.Parameters.Add(PmtrAddressAddressID);
+                command.Parameters.Add(PmtrLine1);
+                command.Parameters.Add(PmtrLine2);
+                command.Parameters.Add(PmtrAddressLocaleID);
+                command.Parameters.Add(PmtrAddressZipID);
+
+                PmtrAddressAddressID.Value = refAddressString;
+                PmtrLine1.Value = credential.Line1;
+                PmtrLine2.Value = credential.Line2;
+                PmtrAddressLocaleID.Value = refLocale;
+                PmtrAddressZipID.Value = refZip;
+
+                command.CommandText = "SELECT @addressID = AddressID FROM [Address] WHERE Line1 = @line1 AND Line2 = @line2";
+                command.ExecuteNonQuery();
+
+                refAddressString = PmtrAddressAddressID.Value.ToString();
+
+                if (refAddressString.Equals(String.Empty))
                 {
-                    sql = "INSERT INTO Address VALUES (@line1, @line2, @localeID, @zipID);";
-                    command = new SqlCommand(sql, connection);
-                    command.Parameters.Add(new SqlParameter("@line1", credential.Line1));
-                    command.Parameters.Add(new SqlParameter("@line2", credential.Line2));
-                    command.Parameters.Add(new SqlParameter("@localeID", refLocale));
-                    command.Parameters.Add(new SqlParameter("@zipID", refZip));
-                    refZip = "SELECT AddressID FROM Address WHERE Line1 = @line1";
+                    command.CommandText = "INSERT INTO Address VALUES(@line1, @line2, @addressLocaleID, @addressZipID)";
+                    command.ExecuteNonQuery();
+                    command.CommandText = "SELECT @addressID = AddressID FROM [Address] WHERE Line1 = @line1 AND Line2 = @line2";
+                    command.ExecuteNonQuery();
+                    refAddressString = PmtrAddressAddressID.Value.ToString();
                 }
 
+                var refAddress = Convert.ToInt32(refAddressString);
 
-                sql = "INSERT INTO User VALUES (@fullName, @phoneNumber, @email, @balance, @userTypeID, @AddressID, @credentialsID);";
-                command = new SqlCommand(sql, connection);
-                command.Parameters.Add(new SqlParameter("@fullName", credential.FullName));
-                command.Parameters.Add(new SqlParameter("@phoneNumber", credential.Phone));
-                command.Parameters.Add(new SqlParameter("@email", credential.Email));
-                command.Parameters.Add(new SqlParameter("@balance", 0));
-                command.Parameters.Add(new SqlParameter("@userTypeID", 1));
-                command.Parameters.Add(new SqlParameter("@AddressID", refAddress));
-                command.Parameters.Add(new SqlParameter("@credentialsID", refCredentials));
+                // check if user exists if they don't exist then add user to User table
+                var PmtrUserFullName = new SqlParameter("@fullName", SqlDbType.VarChar);
+                PmtrUserFullName.Direction = ParameterDirection.Input;
+
+                var PmtrPhoneNumber = new SqlParameter("@phoneNumber", SqlDbType.VarChar);
+                PmtrPhoneNumber.Direction = ParameterDirection.Input;
+
+                var PmtrEmail = new SqlParameter("@email", SqlDbType.VarChar);
+                PmtrEmail.Direction = ParameterDirection.Input;
+
+                var PmtrBalance = new SqlParameter("@balance", SqlDbType.Money);
+                PmtrBalance.Direction = ParameterDirection.Input;
+
+                var PmtrUserTypeID = new SqlParameter("@userTypeID", SqlDbType.Int);
+                PmtrUserTypeID.Direction = ParameterDirection.Input;
+
+                var PmtrUserAddressID = new SqlParameter("@userAddressID", SqlDbType.Int);
+                PmtrUserAddressID.Direction = ParameterDirection.Input;
+
+                var PmtrUserCredentialsID = new SqlParameter("@userCredentialsID", SqlDbType.VarChar);
+                PmtrUserCredentialsID.Direction = ParameterDirection.Input;
+
+                command.Parameters.Add(PmtrUserFullName);
+                command.Parameters.Add(PmtrPhoneNumber);
+                command.Parameters.Add(PmtrEmail);
+                command.Parameters.Add(PmtrBalance);
+                command.Parameters.Add(PmtrUserTypeID);
+                command.Parameters.Add(PmtrUserAddressID);
+                command.Parameters.Add(PmtrUserCredentialsID);
+
+                PmtrUserFullName.Value = credential.FullName;
+                PmtrPhoneNumber.Value = credential.Phone;
+                PmtrEmail.Value = credential.Email;
+                PmtrBalance.Value = 0;
+                PmtrUserTypeID.Value = 1;
+                PmtrUserAddressID.Value = refAddress;
+                PmtrUserCredentialsID.Value = refCredUserName;
+
+                command.CommandText = "INSERT INTO [User] VALUES(@fullName, @phoneNumber, @email, @balance, @userTypeID, @userAddressID, @userCredentialsID)";
+                command.ExecuteNonQuery();
 
             }
             catch (Exception e)

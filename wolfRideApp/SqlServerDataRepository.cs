@@ -266,6 +266,7 @@ namespace wolfRideApp
             }
             catch (Exception e)
             {
+                MessageBox.Show("User does not exist");
                 Console.WriteLine(e);
                 throw;
             }
@@ -329,6 +330,37 @@ namespace wolfRideApp
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        public Double GetBalance(string username)
+        {
+            var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            var command = new SqlCommand();
+            command.Connection = connection;
+
+            string PmtrBalanceString = "0";
+            var PmtrBalance = new SqlParameter("@userBalance", SqlDbType.Money);
+            PmtrBalance.Direction = ParameterDirection.Output;
+
+            var PmtrUserName = new SqlParameter("@userName", SqlDbType.VarChar);
+            PmtrUserName.Direction = ParameterDirection.Input;
+
+            command.Parameters.Add(PmtrBalance);
+            command.Parameters.Add(PmtrUserName);
+
+            PmtrBalance.Value = PmtrBalanceString;
+            PmtrUserName.Value = username;
+
+
+            command.CommandText = "SELECT @userBalance = Balance FROM [User] WHERE CredentialsID = @userName";
+            command.ExecuteNonQuery();
+
+            PmtrBalanceString = PmtrBalance.Value.ToString();
+            double balance = Convert.ToDouble(PmtrBalanceString);
+
+            return balance;
         }
     }
 }

@@ -32,13 +32,16 @@ namespace wolfRideApp
 
                 var credential = database.GetCredential(username);
 
-                if (credential.Password.Equals(password))
+                if (credential.Password.Equals(password) && credential.UserName.Equals(username))
                 {
-                    MessageBox.Show("You are at the home screen.");
+                    this.Hide();
+                    PassengerHome ph = new PassengerHome(username);
+                    ph.ShowDialog();
+                    this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("Incorrect password");
+                    MessageBox.Show("Incorrect login");
                 }
             }
             

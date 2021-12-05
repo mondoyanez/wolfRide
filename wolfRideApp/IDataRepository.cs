@@ -14,6 +14,8 @@ namespace wolfRideApp
 
         Credential GetCredential(string username);
 
+        Double GetBalance(string username);
+
         IEnumerable<Credential> GetCredentials();
 
         void DeleteCredential(string username);

@@ -1,3 +1,26 @@
+USE wolfRide;
+
+/*
+--Testing
+
+SELECT * FROM Credentials;
+SELECT * FROM [State];
+SELECT * FROM Locale;
+SELECT * FROM Zip;
+SELECT * FROM [Address];
+SELECT * FROM [User];
+
+SELECT * FROM [Address]
+WHERE Line1 = '230 NW 19th St' AND Line2 = '';
+
+DELETE FROM Credentials WHERE UserName = 'mondoyanez';
+DELETE FROM [State] WHERE [State] = 'NY';
+DELETE FROM Locale WHERE City = 'Manhatten';
+DELETE FROM Zip WHERE ZipCode = 10001;
+DELETE FROM [Address] WHERE Line1 = '2389 NE Lafayette Ave';
+DELETE FROM [User] WHERE FullName = 'Armando Yanez';
+*/
+
 IF DB_ID('wolfRide') IS NOT NULL
 DROP DATABASE wolfRide;
 GO
@@ -138,5 +161,11 @@ SELECT * FROM [Address];
 SELECT * FROM [User];
 SELECT * FROM RideStatus;
 
-DROP TABLE [Credentials], [Address], Locale, MakeModel, Ride, [User], UserType, Vehicle, Zip, [State], RideStatus;
+SELECT Balance FROM [User]
+WHERE CredentialsID = 'mondoyanez';
 
+UPDATE [User]
+SET Balance = 100.25
+WHERE FullName = 'Armando Yanez' AND CredentialsID = 'mondoyanez';
+
+DROP TABLE [Credentials], [Address], Locale, MakeModel, Ride, [User], UserType, Vehicle, Zip, [State], RideStatus;

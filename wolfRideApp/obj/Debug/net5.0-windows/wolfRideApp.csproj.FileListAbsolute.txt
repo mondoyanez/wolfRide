@@ -25,3 +25,4 @@ C:\Users\ayane\Desktop\work\School\Fall 2021\CS364\wolfRide\wolfRideApp\bin\Debu
 C:\Users\ayane\Desktop\work\School\Fall 2021\CS364\wolfRide\wolfRideApp\obj\Debug\net5.0-windows\wolfRideApp.csproj.CopyComplete
 C:\Users\ayane\Desktop\work\School\Fall 2021\CS364\wolfRide\WolfRideApp\obj\Debug\net5.0-windows\wolfRideApp.createAccount.resources
 C:\Users\ayane\Desktop\work\School\Fall 2021\CS364\wolfRide\WolfRideApp\obj\Debug\net5.0-windows\wolfRideApp.Properties.Resources.resources
+C:\Users\ayane\Desktop\work\School\Fall 2021\CS364\wolfRide\WolfRideApp\obj\Debug\net5.0-windows\wolfRideApp.PassengerHome.resources

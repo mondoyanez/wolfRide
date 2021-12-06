@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
@@ -15,6 +16,18 @@ namespace wolfRideApp
         Credential GetCredential(string username);
 
         Double GetBalance(string username);
+
+        void AddFunds(string username, decimal amount);
+
+        void RequestRide(string username, string destination, int passengers);
+
+        void getCurrentRide(string username, DataGridView datagrid);
+
+        bool isDriver(string username);
+
+        void RiderWaiting(DataGridView dataGrid);
+
+        void MyRiders(string name, DataGridView datagrid);
 
         IEnumerable<Credential> GetCredentials();
 

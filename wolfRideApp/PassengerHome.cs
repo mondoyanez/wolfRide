@@ -25,7 +25,8 @@ namespace wolfRideApp
 
         private void btnBalance_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("funds added");
+            addFunds af = new addFunds(txtName.Text);
+            af.ShowDialog();
         }
 
         private void btnLogout_Click(object sender, EventArgs e)
@@ -42,6 +43,29 @@ namespace wolfRideApp
 
             var currentBalance = database.GetBalance(txtName.Text);
             MessageBox.Show("Current Balance: $" + currentBalance);
+        }
+
+        private void btnPickup_Click(object sender, EventArgs e)
+        {
+            pickUp pu = new pickUp(txtName.Text);
+            pu.ShowDialog();
+        }
+
+        private void btnCurrentRides_Click(object sender, EventArgs e)
+        {
+            var database = new SqlServerDataRepository();
+            database.getCurrentRide(txtName.Text, dataGridViewRides);
+
+            txtCurrentRides.Show();
+            dataGridViewRides.Show();
+        }
+
+        private void btnDrive_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Driver d = new Driver(txtName.Text);
+            d.ShowDialog();
+            this.Close();
         }
     }
 }

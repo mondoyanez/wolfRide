@@ -362,5 +362,215 @@ namespace wolfRideApp
 
             return balance;
         }
+
+        public void AddFunds(string username, decimal amount)
+        {
+            var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            var command = new SqlCommand();
+            command.Connection = connection;
+
+            var PmtrBalance = new SqlParameter("@newBalance", SqlDbType.Money);
+            PmtrBalance.Direction = ParameterDirection.Input;
+
+            var PmtrUserName = new SqlParameter("@userName", SqlDbType.VarChar);
+            PmtrUserName.Direction = ParameterDirection.Input;
+
+            command.Parameters.Add(PmtrBalance);
+            command.Parameters.Add(PmtrUserName);
+
+            PmtrBalance.Value = amount;
+            PmtrUserName.Value = username;
+
+
+            command.CommandText = "UPDATE [User] SET Balance = @newBalance WHERE CredentialsID = @userName";
+            command.ExecuteNonQuery();
+        }
+
+        public void RequestRide(string username, string destination, int passengers)
+        {
+            var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            var command = new SqlCommand();
+            command.Connection = connection;
+
+            // Get userID from User table
+            string pmtrUserIDString = "0";
+            var PmtrUserUserID = new SqlParameter("@userUserID", SqlDbType.Int);
+            PmtrUserUserID.Direction = ParameterDirection.Output;
+
+            string pmtrUserBalanceString = "0";
+            var PmtrUserBalance = new SqlParameter("@userBalance", SqlDbType.Int);
+            PmtrUserBalance.Direction = ParameterDirection.Output;
+
+            var PmtrUserCredentialID = new SqlParameter("@userCredentialID", SqlDbType.VarChar);
+            PmtrUserCredentialID.Direction = ParameterDirection.Input;
+
+            command.Parameters.Add(PmtrUserUserID);
+            command.Parameters.Add(PmtrUserBalance);
+            command.Parameters.Add(PmtrUserCredentialID);
+
+            PmtrUserUserID.Value = pmtrUserIDString;
+            PmtrUserBalance.Value = pmtrUserBalanceString;
+            PmtrUserCredentialID.Value = username;
+
+            command.CommandText = "SELECT @userUserID = UserID, @userBalance = Balance FROM [User] WHERE CredentialsID = @userCredentialID";
+            command.ExecuteNonQuery();
+
+            pmtrUserIDString = PmtrUserUserID.Value.ToString();
+            var userID = Convert.ToInt32(pmtrUserIDString);
+
+            pmtrUserBalanceString = PmtrUserBalance.Value.ToString();
+            var balance = Convert.ToDecimal(pmtrUserBalanceString);
+
+            // add new ride to Ride table
+
+            if (balance >= 5)
+            {
+                var PmtrPassengers = new SqlParameter("@passengers", SqlDbType.Int);
+                PmtrPassengers.Direction = ParameterDirection.Input;
+
+                var PmtrDestination = new SqlParameter("@destination", SqlDbType.VarChar);
+                PmtrDestination.Direction = ParameterDirection.Input;
+
+                var PmtrRider = new SqlParameter("@rider", SqlDbType.Int);
+                PmtrRider.Direction = ParameterDirection.Input;
+
+                var PmtrDriver = new SqlParameter("@driver", SqlDbType.Int);
+                PmtrDriver.Direction = ParameterDirection.Input;
+
+                var PmtrVehicle = new SqlParameter("@vehicle", SqlDbType.Int);
+                PmtrVehicle.Direction = ParameterDirection.Input;
+
+                var PmtrRideStatus = new SqlParameter("@rideStatus", SqlDbType.Int);
+                PmtrRideStatus.Direction = ParameterDirection.Input;
+
+                command.Parameters.Add(PmtrPassengers);
+                command.Parameters.Add(PmtrDestination);
+                command.Parameters.Add(PmtrRider);
+                command.Parameters.Add(PmtrDriver);
+                command.Parameters.Add(PmtrVehicle);
+                command.Parameters.Add(PmtrRideStatus);
+
+                PmtrPassengers.Value = passengers;
+                PmtrDestination.Value = destination;
+                PmtrRider.Value = userID;
+                PmtrDriver.Value = 1;
+                PmtrVehicle.Value = 1;
+                PmtrRideStatus.Value = 1;
+
+                command.CommandText = "INSERT INTO Ride VALUES(@passengers, DATEADD(MINUTE, 30, GETDATE()), DATEADD(MINUTE, 15, GETDATE()), @destination, @rider, @driver, @vehicle, @rideStatus)";
+                command.ExecuteNonQuery();
+            }
+            else
+            {
+                MessageBox.Show("NOT ENOUGH FUNDS IN ACCOUNT TO REQUEST FOR A RIDE PLEASE ADD MORE FUNDS TO YOUR ACCOUNT.");
+            }
+        }
+
+        public void getCurrentRide(string name, DataGridView datagrid)
+        {
+            var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            var command = new SqlCommand();
+            command.Connection = connection;
+
+            var PmtrCredentialID = new SqlParameter("@credentialID", SqlDbType.VarChar);
+            PmtrCredentialID.Direction = ParameterDirection.Input;
+            
+            command.Parameters.Add(PmtrCredentialID);
+            PmtrCredentialID.Value = name;
+
+            command.CommandText = "SELECT U.FullName AS 'Driver', M.Make + ' ' + M.Model AS 'Car', PickupTime, EstimatedTimeOfArrival, Destination  FROM Ride AS R " +
+                "INNER JOIN [User] AS U ON R.Driver = U.UserID " + "INNER JOIN [User] AS U2 ON R.Rider = U2.UserID " + "INNER JOIN Vehicle AS V ON R.VehicleID = V.VehicleID " + 
+                "INNER JOIN MakeModel AS M ON V.MakeModelID = M.MakeModelID " + "WHERE R.RideStatus <> 3 AND U2.CredentialsID = @credentialID";
+
+            var adpt = new SqlDataAdapter(command);
+            var dt = new DataTable();
+            adpt.Fill(dt);
+            datagrid.DataSource = dt;
+        }
+
+        public bool isDriver(string username)
+        {
+            bool driver = false;
+
+            GetCredential(username);
+
+            var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            var command = new SqlCommand();
+            command.Connection = connection;
+
+            string userUserTypeIDString = "0";
+            var PmtrUserTypeID = new SqlParameter("@userTypeID", SqlDbType.Int);
+            PmtrUserTypeID.Direction = ParameterDirection.Output;
+
+            var PmtrUserCredentialID = new SqlParameter("@userCredentialID", SqlDbType.VarChar);
+            PmtrUserCredentialID.Direction = ParameterDirection.Input;
+
+            command.Parameters.Add(PmtrUserTypeID);
+            command.Parameters.Add(PmtrUserCredentialID);
+
+            PmtrUserTypeID.Value = userUserTypeIDString;
+            PmtrUserCredentialID.Value = username;
+
+            command.CommandText = "SELECT @userTypeID = UserTypeID FROM [User] WHERE CredentialsID = @userCredentialID";
+            command.ExecuteNonQuery();
+
+            userUserTypeIDString = PmtrUserTypeID.Value.ToString();
+            var userTypeID = Convert.ToInt32(userUserTypeIDString);
+
+            if (userTypeID > 1)
+            {
+                driver = true;
+            }
+
+            return driver;
+        }
+
+        public void RiderWaiting(DataGridView dataGrid)
+        {
+            var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            var command = new SqlCommand();
+            command.Connection = connection;
+
+            command.CommandText = "SELECT U.FullName AS 'Rider', R.NumOfPassengers AS '# of Passengers', Destination FROM Ride AS R " +
+                "INNER JOIN [User] AS U ON R.Rider = U.UserID " + "WHERE RideStatus = 1";
+
+            var adpt = new SqlDataAdapter(command);
+            var dt = new DataTable();
+            adpt.Fill(dt);
+            dataGrid.DataSource = dt;
+        }
+
+        public void MyRiders(string name, DataGridView datagrid)
+        {
+            var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            var command = new SqlCommand();
+            command.Connection = connection;
+
+            var PmtrCredentialID = new SqlParameter("@credentialID", SqlDbType.VarChar);
+            PmtrCredentialID.Direction = ParameterDirection.Input;
+
+            command.Parameters.Add(PmtrCredentialID);
+            PmtrCredentialID.Value = name;
+
+            command.CommandText = "SELECT U.FullName AS 'Rider', PickupTime, EstimatedTimeOfArrival, Destination  FROM Ride AS R " +
+                "INNER JOIN [User] AS U ON R.Rider = U.UserID " + "U.CredentialsID = @credentialID";
+
+            var adpt = new SqlDataAdapter(command);
+            var dt = new DataTable();
+            adpt.Fill(dt);
+            datagrid.DataSource = dt;
+        }
     }
 }

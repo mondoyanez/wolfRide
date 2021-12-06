@@ -40,6 +40,7 @@ namespace wolfRideApp
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.btnDrive = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -80,9 +81,9 @@ namespace wolfRideApp
             // 
             // btnCheckPassword
             // 
-            this.btnCheckPassword.Location = new System.Drawing.Point(390, 293);
+            this.btnCheckPassword.Location = new System.Drawing.Point(450, 293);
             this.btnCheckPassword.Name = "btnCheckPassword";
-            this.btnCheckPassword.Size = new System.Drawing.Size(209, 23);
+            this.btnCheckPassword.Size = new System.Drawing.Size(168, 23);
             this.btnCheckPassword.TabIndex = 4;
             this.btnCheckPassword.Text = "Login";
             this.btnCheckPassword.UseVisualStyleBackColor = true;
@@ -90,7 +91,7 @@ namespace wolfRideApp
             // 
             // btnCreateAccount
             // 
-            this.btnCreateAccount.Location = new System.Drawing.Point(164, 293);
+            this.btnCreateAccount.Location = new System.Drawing.Point(102, 293);
             this.btnCreateAccount.Name = "btnCreateAccount";
             this.btnCreateAccount.Size = new System.Drawing.Size(168, 23);
             this.btnCreateAccount.TabIndex = 5;
@@ -135,12 +136,23 @@ namespace wolfRideApp
             this.pictureBox3.TabIndex = 9;
             this.pictureBox3.TabStop = false;
             // 
+            // btnDrive
+            // 
+            this.btnDrive.Location = new System.Drawing.Point(276, 293);
+            this.btnDrive.Name = "btnDrive";
+            this.btnDrive.Size = new System.Drawing.Size(168, 23);
+            this.btnDrive.TabIndex = 10;
+            this.btnDrive.Text = "Login As Driver";
+            this.btnDrive.UseVisualStyleBackColor = true;
+            this.btnDrive.Click += new System.EventHandler(this.btnDrive_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(731, 450);
+            this.Controls.Add(this.btnDrive);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
@@ -173,6 +185,7 @@ namespace wolfRideApp
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.Button btnDrive;
     }
 }
 

@@ -37,11 +37,16 @@ namespace wolfRideApp
             this.txtWelcome = new System.Windows.Forms.Label();
             this.btnCurrentBalance = new System.Windows.Forms.Button();
             this.txtName = new System.Windows.Forms.Label();
+            this.btnCurrentRides = new System.Windows.Forms.Button();
+            this.dataGridViewRides = new System.Windows.Forms.DataGridView();
+            this.txtCurrentRides = new System.Windows.Forms.Label();
+            this.btnDrive = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRides)).BeginInit();
             this.SuspendLayout();
             // 
             // btnLogout
             // 
-            this.btnLogout.Location = new System.Drawing.Point(473, 370);
+            this.btnLogout.Location = new System.Drawing.Point(499, 374);
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(75, 23);
             this.btnLogout.TabIndex = 0;
@@ -51,16 +56,17 @@ namespace wolfRideApp
             // 
             // btnPickup
             // 
-            this.btnPickup.Location = new System.Drawing.Point(260, 180);
+            this.btnPickup.Location = new System.Drawing.Point(32, 38);
             this.btnPickup.Name = "btnPickup";
             this.btnPickup.Size = new System.Drawing.Size(113, 23);
             this.btnPickup.TabIndex = 1;
             this.btnPickup.Text = "Request Pickup";
             this.btnPickup.UseVisualStyleBackColor = true;
+            this.btnPickup.Click += new System.EventHandler(this.btnPickup_Click);
             // 
             // btnBalance
             // 
-            this.btnBalance.Location = new System.Drawing.Point(261, 231);
+            this.btnBalance.Location = new System.Drawing.Point(462, 39);
             this.btnBalance.Name = "btnBalance";
             this.btnBalance.Size = new System.Drawing.Size(112, 23);
             this.btnBalance.TabIndex = 2;
@@ -70,7 +76,7 @@ namespace wolfRideApp
             // 
             // btnApplyDrive
             // 
-            this.btnApplyDrive.Location = new System.Drawing.Point(257, 370);
+            this.btnApplyDrive.Location = new System.Drawing.Point(192, 374);
             this.btnApplyDrive.Name = "btnApplyDrive";
             this.btnApplyDrive.Size = new System.Drawing.Size(113, 23);
             this.btnApplyDrive.TabIndex = 3;
@@ -79,7 +85,7 @@ namespace wolfRideApp
             // 
             // btnContact
             // 
-            this.btnContact.Location = new System.Drawing.Point(56, 370);
+            this.btnContact.Location = new System.Drawing.Point(32, 374);
             this.btnContact.Name = "btnContact";
             this.btnContact.Size = new System.Drawing.Size(112, 23);
             this.btnContact.TabIndex = 4;
@@ -90,7 +96,7 @@ namespace wolfRideApp
             // 
             this.txtWelcome.AutoSize = true;
             this.txtWelcome.Font = new System.Drawing.Font("Georgia", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtWelcome.Location = new System.Drawing.Point(243, 19);
+            this.txtWelcome.Location = new System.Drawing.Point(238, 9);
             this.txtWelcome.Name = "txtWelcome";
             this.txtWelcome.Size = new System.Drawing.Size(141, 31);
             this.txtWelcome.TabIndex = 5;
@@ -98,7 +104,7 @@ namespace wolfRideApp
             // 
             // btnCurrentBalance
             // 
-            this.btnCurrentBalance.Location = new System.Drawing.Point(261, 290);
+            this.btnCurrentBalance.Location = new System.Drawing.Point(462, 68);
             this.btnCurrentBalance.Name = "btnCurrentBalance";
             this.btnCurrentBalance.Size = new System.Drawing.Size(112, 23);
             this.btnCurrentBalance.TabIndex = 6;
@@ -110,11 +116,52 @@ namespace wolfRideApp
             // 
             this.txtName.AutoSize = true;
             this.txtName.Font = new System.Drawing.Font("Georgia", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtName.Location = new System.Drawing.Point(243, 87);
+            this.txtName.Location = new System.Drawing.Point(238, 60);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(95, 31);
             this.txtName.TabIndex = 7;
             this.txtName.Text = "Name";
+            // 
+            // btnCurrentRides
+            // 
+            this.btnCurrentRides.Location = new System.Drawing.Point(33, 68);
+            this.btnCurrentRides.Name = "btnCurrentRides";
+            this.btnCurrentRides.Size = new System.Drawing.Size(112, 23);
+            this.btnCurrentRides.TabIndex = 8;
+            this.btnCurrentRides.Text = "Current Rides";
+            this.btnCurrentRides.UseVisualStyleBackColor = true;
+            this.btnCurrentRides.Click += new System.EventHandler(this.btnCurrentRides_Click);
+            // 
+            // dataGridViewRides
+            // 
+            this.dataGridViewRides.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewRides.Location = new System.Drawing.Point(88, 149);
+            this.dataGridViewRides.Name = "dataGridViewRides";
+            this.dataGridViewRides.RowTemplate.Height = 25;
+            this.dataGridViewRides.Size = new System.Drawing.Size(450, 150);
+            this.dataGridViewRides.TabIndex = 9;
+            this.dataGridViewRides.Visible = false;
+            // 
+            // txtCurrentRides
+            // 
+            this.txtCurrentRides.AutoSize = true;
+            this.txtCurrentRides.Font = new System.Drawing.Font("Georgia", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.txtCurrentRides.Location = new System.Drawing.Point(239, 128);
+            this.txtCurrentRides.Name = "txtCurrentRides";
+            this.txtCurrentRides.Size = new System.Drawing.Size(123, 18);
+            this.txtCurrentRides.TabIndex = 10;
+            this.txtCurrentRides.Text = "Current Rides";
+            this.txtCurrentRides.Visible = false;
+            // 
+            // btnDrive
+            // 
+            this.btnDrive.Location = new System.Drawing.Point(342, 374);
+            this.btnDrive.Name = "btnDrive";
+            this.btnDrive.Size = new System.Drawing.Size(113, 23);
+            this.btnDrive.TabIndex = 11;
+            this.btnDrive.Text = "Sign In As Driver";
+            this.btnDrive.UseVisualStyleBackColor = true;
+            this.btnDrive.Click += new System.EventHandler(this.btnDrive_Click);
             // 
             // PassengerHome
             // 
@@ -122,6 +169,10 @@ namespace wolfRideApp
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(605, 409);
+            this.Controls.Add(this.btnDrive);
+            this.Controls.Add(this.txtCurrentRides);
+            this.Controls.Add(this.dataGridViewRides);
+            this.Controls.Add(this.btnCurrentRides);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.btnCurrentBalance);
             this.Controls.Add(this.txtWelcome);
@@ -132,6 +183,7 @@ namespace wolfRideApp
             this.Controls.Add(this.btnLogout);
             this.Name = "PassengerHome";
             this.Text = "Passenger Home Screen";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRides)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -148,5 +200,9 @@ namespace wolfRideApp
         public System.Windows.Forms.Label txtWelcome;
         private System.Windows.Forms.Button btnCurrentBalance;
         private System.Windows.Forms.Label txtName;
+        private System.Windows.Forms.Button btnCurrentRides;
+        private System.Windows.Forms.DataGridView dataGridViewRides;
+        private System.Windows.Forms.Label txtCurrentRides;
+        private System.Windows.Forms.Button btnDrive;
     }
 }

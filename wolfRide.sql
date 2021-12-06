@@ -1,26 +1,5 @@
 USE wolfRide;
 
-/*
---Testing
-
-SELECT * FROM Credentials;
-SELECT * FROM [State];
-SELECT * FROM Locale;
-SELECT * FROM Zip;
-SELECT * FROM [Address];
-SELECT * FROM [User];
-
-SELECT * FROM [Address]
-WHERE Line1 = '230 NW 19th St' AND Line2 = '';
-
-DELETE FROM Credentials WHERE UserName = 'mondoyanez';
-DELETE FROM [State] WHERE [State] = 'NY';
-DELETE FROM Locale WHERE City = 'Manhatten';
-DELETE FROM Zip WHERE ZipCode = 10001;
-DELETE FROM [Address] WHERE Line1 = '2389 NE Lafayette Ave';
-DELETE FROM [User] WHERE FullName = 'Armando Yanez';
-*/
-
 IF DB_ID('wolfRide') IS NOT NULL
 DROP DATABASE wolfRide;
 GO
@@ -109,7 +88,7 @@ CREATE TABLE Ride (
 );
 
 INSERT INTO Credentials
-VALUES ('Mondoyanez', 'Password!'), ('Peteparker', 'FriendlyNeighborhood'), ('RBicchieri', 'batminger'),
+VALUES ('mondoyanez', 'password'), ('Peteparker', 'FriendlyNeighborhood'), ('RBicchieri', 'batminger'),
 ('AnnetteWhitney','warcamp'), ('NoachFay','smartSoccer'), ('OthmanWiegand','masterSure'), ('FearghasHagen','piperFervent'),
 ('HengBlue','rindingKeep'),('KwadwoHerbert','historyYellow'),('AoalsteinnYeung','steelBlock');
 
@@ -129,17 +108,23 @@ INSERT INTO Zip
 VALUES (97128), (97132), (97202), (97361), (97301), (97071), (97062), (97401), (97034), (97045);
 
 INSERT INTO MakeModel
-VALUES ('Tesla', 'Model S'), ('Ford', 'Taurus'), ('BMW','3 Series'), ('Chevrolet','Malibu'), ('Mercedes-Benz','CLA 250 4MATIC COUPE');
+VALUES ('NOT ', 'KNOWN'), ('Tesla', 'Model S'), ('Ford', 'Taurus'), ('BMW','3 Series'), ('Chevrolet','Malibu'), ('Mercedes-Benz','CLA 250 4MATIC COUPE');
+
+INSERT INTO Vehicle(MakeModelID)
+VALUES(1);
 
 INSERT INTO Vehicle
-VALUES ('647-LKC', 2), ('281-OJE', 4), ('903-KVM', 5), ('124-ETM', 1), ('361-OZP', 3), ('201-NNI', 4), ('579-ALC', 2), ('685-RDX', 3), ('458-JJW', 1), ('662-HSM', 5);
+VALUES ('647-LKC', 3), ('281-OJE', 5), ('903-KVM', 6), ('124-ETM', 2), ('361-OZP', 4), ('201-NNI', 5), ('579-ALC', 3), ('685-RDX', 4), ('458-JJW', 2), ('662-HSM', 6);
 
 INSERT INTO Address(Line1, Line2, LocaleID, ZipID)
 VALUES ('230 NW 19th St', '', 1, 1), ('520 E Michelle Ct', '', 2, 2), ('3608 SE Center St', '', 3, 3), ('110 Craven St S', '', 4, 4), ('3327 Rockingham Ct NE', '', 5 ,5),
 ('858 Ostrom Dr', '', 6, 6), ('7119 SW Sagert St', 'Unit 104', 7, 7), ('1478 Pearl St', '', 8, 8), ('668 McVey Ave', 'Unit 31', 9, 9), ('705 9th St', '', 10, 10);
 
+INSERT INTO [User](FullName)
+VALUES ('UNKNOWN')
+
 INSERT INTO [User]
-VALUES ('Armando Yanez', '847-364-4431', 'armandoyanez@yahoo.com', 200, 7, 1, 'Mondoyanez'),
+VALUES ('Armando Yanez', '847-364-4431', 'armandoyanez@yahoo.com', 200, 7, 1, 'mondoyanez'),
 ('Peter Parker', '753-278-8064', 'peterparker@gmail.com', 100, 2, 2, 'Peteparker'),
 ('Richard Bicchieri', '906-681-7333', 'richBicchieri@msn.com', 92, 3, 3, 'RBicchieri'),
 ('Annette Whitney', '486-494-4958', 'annWhitney@yahoo.com', 122, 1, 4, 'AnnetteWhitney'),
@@ -150,22 +135,91 @@ VALUES ('Armando Yanez', '847-364-4431', 'armandoyanez@yahoo.com', 200, 7, 1, 'M
 ('Kwadwo Herbert', '497-504-5577', 'KwadwoHerbert@yahoo.com', 106, 1, 9, 'KwadwoHerbert'),
 ('Aoalsteinn Yeung', '865-449-8345', 'AoalsteinnYeung@gmail.com', 112, 1, 10, 'AoalsteinnYeung');
 
+--------------------------------------------------------------------------------------------------------------------------------------------------
+-- Debugging / Testing
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+/*
+--Testing
+
 SELECT * FROM Credentials;
-SELECT * FROM UserType;
+SELECT * FROM [State];
+SELECT * FROM Locale;
+SELECT * FROM Zip;
+SELECT * FROM [Address];
+SELECT * FROM [User];
+
+SELECT * FROM [Address]
+WHERE Line1 = '230 NW 19th St' AND Line2 = '';
+
+DELETE FROM Credentials WHERE UserName = 'mondoyanez';
+DELETE FROM [State] WHERE [State] = 'NY';
+DELETE FROM Locale WHERE City = 'Manhatten';
+DELETE FROM Zip WHERE ZipCode = 10001;
+DELETE FROM [Address] WHERE Line1 = '2389 NE Lafayette Ave';
+DELETE FROM [User] WHERE FullName = 'Armando Yanez';
+*/
+
+
+INSERT INTO Ride
+VALUES (2, DATEADD(MINUTE, 30, GETDATE()), DATEADD(MINUTE, 15, GETDATE()), 'Western Oregon University- Math Center', 1, 11, 11, 1);
+
+INSERT INTO Ride(NumOfPassengers, EstimatedTimeOfArrival, PickupTime, Destination, Rider, RideStatus)
+VALUES (2, DATEADD(MINUTE, 30, GETDATE()), DATEADD(MINUTE, 15, GETDATE()), 'Western Oregon University- Math Center', 4, 1);
+
+UPDATE Ride
+SET Driver = 5, VehicleID = 4
+WHERE RideID = 5;
+
+UPDATE Ride
+SET RideStatus = 2
+WHERE RideID = 5;
+
 SELECT * FROM [State];
 SELECT * FROM Locale;
 SELECT * FROM Zip;
 SELECT * FROM MakeModel;
 SELECT * FROM Vehicle;
-SELECT * FROM [Address];
+SELECT * FROM Credentials;
 SELECT * FROM [User];
+SELECT * FROM Ride;
+SELECT * FROM UserType;
+SELECT * FROM [Address];
 SELECT * FROM RideStatus;
+
+DELETE FROM Ride WHERE Rider = 1;
+
+SELECT U.FullName AS 'Driver', M.Make + ' ' + M.Model AS 'Car', PickupTime, EstimatedTimeOfArrival, Destination  FROM Ride AS R
+INNER JOIN [User] AS U ON R.Driver = U.UserID
+INNER JOIN [User] AS U2 ON R.Rider = U2.UserID
+INNER JOIN Vehicle AS V ON R.VehicleID = V.VehicleID
+INNER JOIN MakeModel AS M ON V.MakeModelID = M.MakeModelID
+WHERE R.RideStatus <> 3 AND U2.CredentialsID = 'mondoyanez'
+
+SELECT U.FullName AS 'Rider', R.NumOfPassengers AS '# of Passengers', Destination FROM Ride AS R
+INNER JOIN [User] AS U ON R.Rider = U.UserID
+WHERE RideStatus = 1;
+
+SELECT U.FullName AS 'Rider', PickupTime, EstimatedTimeOfArrival, Destination  FROM Ride AS R
+INNER JOIN [User] AS U ON R.Rider = U.UserID
+--U.CredentialsID = @credentialID
+
+SELECT *  FROM Ride AS R
+INNER JOIN [User] AS U1 ON R.Rider = U1.UserID
+INNER JOIN [User] AS U2 ON R.Driver = U2.UserID
+WHERE U2.UserID = 2
+--U.CredentialsID = @credentialID
 
 SELECT Balance FROM [User]
 WHERE CredentialsID = 'mondoyanez';
 
 UPDATE [User]
-SET Balance = 100.25
+SET Balance = 0
 WHERE FullName = 'Armando Yanez' AND CredentialsID = 'mondoyanez';
+
+UPDATE Ride
+SET RideStatus = 2
+WHERE RideID = 3;
 
 DROP TABLE [Credentials], [Address], Locale, MakeModel, Ride, [User], UserType, Vehicle, Zip, [State], RideStatus;

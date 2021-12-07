@@ -62,10 +62,20 @@ namespace wolfRideApp
 
         private void btnDrive_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Driver d = new Driver(txtName.Text);
-            d.ShowDialog();
-            this.Close();
+            var database = new SqlServerDataRepository();
+            var credential = database.GetCredential(txtName.Text);
+
+            if (database.isDriver(txtName.Text))
+            {
+                this.Hide();
+                Driver d = new Driver(txtName.Text);
+                d.ShowDialog();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("SORRY YOU ARE NOT REGISTERED AS A DRIVER PLEASE APPLY TO BE ONE IF YOU ARE INTERESTED.");
+            }
         }
     }
 }

@@ -197,9 +197,10 @@ INNER JOIN Vehicle AS V ON R.VehicleID = V.VehicleID
 INNER JOIN MakeModel AS M ON V.MakeModelID = M.MakeModelID
 WHERE R.RideStatus <> 3 AND U2.CredentialsID = 'mondoyanez'
 
-SELECT U.FullName AS 'Rider', R.NumOfPassengers AS '# of Passengers', Destination FROM Ride AS R
-INNER JOIN [User] AS U ON R.Rider = U.UserID
-WHERE RideStatus = 1;
+SELECT U2.FullName AS 'Rider Name', R.NumOfPassengers AS '# of Passengers', R.PickupTime AS 'Pickup Time', R.EstimatedTimeOfArrival AS 'Estimated Time of Arrival', R.Destination FROM Ride AS R
+INNER JOIN [User] AS U1 ON R.Driver = U1.UserID
+INNER JOIN [User] AS U2 ON R.Rider = U2.UserID
+WHERE U1.CredentialsID = 'Peteparker';
 
 SELECT U.FullName AS 'Rider', PickupTime, EstimatedTimeOfArrival, Destination  FROM Ride AS R
 INNER JOIN [User] AS U ON R.Rider = U.UserID
@@ -220,6 +221,10 @@ WHERE FullName = 'Armando Yanez' AND CredentialsID = 'mondoyanez';
 
 UPDATE Ride
 SET RideStatus = 2
-WHERE RideID = 3;
+WHERE RideID = 1;
+
+UPDATE Ride
+SET Driver = 2
+WHERE RideID = 1
 
 DROP TABLE [Credentials], [Address], Locale, MakeModel, Ride, [User], UserType, Vehicle, Zip, [State], RideStatus;

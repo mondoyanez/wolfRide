@@ -52,7 +52,9 @@ namespace wolfRideApp
 
         private void btnMyRiders_Click(object sender, EventArgs e)
         {
-
+            var database = new SqlServerDataRepository();
+            database.MyRiders(username, dataGridView1);
+            dataGridView1.Show();
         }
     }
 }

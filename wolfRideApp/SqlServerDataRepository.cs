@@ -564,8 +564,9 @@ namespace wolfRideApp
             command.Parameters.Add(PmtrCredentialID);
             PmtrCredentialID.Value = name;
 
-            command.CommandText = "SELECT U.FullName AS 'Rider', PickupTime, EstimatedTimeOfArrival, Destination  FROM Ride AS R " +
-                "INNER JOIN [User] AS U ON R.Rider = U.UserID " + "U.CredentialsID = @credentialID";
+            command.CommandText = "SELECT U2.FullName AS 'Rider Name', R.NumOfPassengers AS '# of Passengers', R.PickupTime AS 'Pickup Time', " +
+                "R.EstimatedTimeOfArrival AS 'Estimated Time of Arrival', R.Destination FROM Ride AS R " + "INNER JOIN [User] AS U1 ON R.Driver = U1.UserID " +
+                "INNER JOIN [User] AS U2 ON R.Rider = U2.UserID " + "WHERE U1.CredentialsID = @credentialID";
 
             var adpt = new SqlDataAdapter(command);
             var dt = new DataTable();

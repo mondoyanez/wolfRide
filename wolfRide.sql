@@ -24,19 +24,6 @@ CREATE TABLE RideStatus (
 	RideStatus VARCHAR(256)
 );
 
-CREATE TABLE MakeModel (
-	MakeModelID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-	Make VARCHAR(256),
-	Model VARCHAR(256)
-);
-
-CREATE TABLE Vehicle (
-	VehicleID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-	LicensePlate VARCHAR(256),
-
-	MakeModelID INT FOREIGN KEY REFERENCES MakeModel(MakeModelID)
-);
-
 CREATE TABLE [State] (
 	StateID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 	[State] VARCHAR(2)
@@ -74,6 +61,33 @@ CREATE TABLE [User] (
 	CredentialsID VARCHAR(256) FOREIGN KEY REFERENCES Credentials(UserName)
 );
 
+CREATE TABLE MakeModel (
+	MakeModelID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	Make VARCHAR(256),
+	Model VARCHAR(256)
+);
+
+CREATE TABLE Vehicle (
+	VehicleID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	LicensePlate VARCHAR(256),
+
+	MakeModelID INT FOREIGN KEY REFERENCES MakeModel(MakeModelID),
+	UserID INT FOREIGN KEY REFERENCES [User](UserID)
+);
+
+CREATE TABLE MessageType (
+	MessageTypeID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	MessageType VARCHAR(64)
+);
+
+CREATE TABLE AdminMessages (
+	MessageID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
+	[Message] VARCHAR(512),
+
+	MessageTypeID INT FOREIGN KEY REFERENCES MessageType(MessageTypeID),
+	Messenger INT FOREIGN KEY REFERENCES [User](UserID)
+);
+
 CREATE TABLE Ride (
 	RideID INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
 	NumOfPassengers INT,
@@ -107,15 +121,6 @@ VALUES ('McMinnville', 1), ('Newberg', 1), ('Portland', 1), ('Monmouth', 1), ('S
 INSERT INTO Zip
 VALUES (97128), (97132), (97202), (97361), (97301), (97071), (97062), (97401), (97034), (97045);
 
-INSERT INTO MakeModel
-VALUES ('NOT ', 'KNOWN'), ('Tesla', 'Model S'), ('Ford', 'Taurus'), ('BMW','3 Series'), ('Chevrolet','Malibu'), ('Mercedes-Benz','CLA 250 4MATIC COUPE');
-
-INSERT INTO Vehicle(MakeModelID)
-VALUES(1);
-
-INSERT INTO Vehicle
-VALUES ('647-LKC', 3), ('281-OJE', 5), ('903-KVM', 6), ('124-ETM', 2), ('361-OZP', 4), ('201-NNI', 5), ('579-ALC', 3), ('685-RDX', 4), ('458-JJW', 2), ('662-HSM', 6);
-
 INSERT INTO Address(Line1, Line2, LocaleID, ZipID)
 VALUES ('230 NW 19th St', '', 1, 1), ('520 E Michelle Ct', '', 2, 2), ('3608 SE Center St', '', 3, 3), ('110 Craven St S', '', 4, 4), ('3327 Rockingham Ct NE', '', 5 ,5),
 ('858 Ostrom Dr', '', 6, 6), ('7119 SW Sagert St', 'Unit 104', 7, 7), ('1478 Pearl St', '', 8, 8), ('668 McVey Ave', 'Unit 31', 9, 9), ('705 9th St', '', 10, 10);
@@ -134,6 +139,18 @@ VALUES ('Armando Yanez', '847-364-4431', 'armandoyanez@yahoo.com', 200, 7, 1, 'm
 ('Heng Blue', '859-394-5230', 'HengBlue@msn.com', 96, 3, 8, 'HengBlue'),
 ('Kwadwo Herbert', '497-504-5577', 'KwadwoHerbert@yahoo.com', 106, 1, 9, 'KwadwoHerbert'),
 ('Aoalsteinn Yeung', '865-449-8345', 'AoalsteinnYeung@gmail.com', 112, 1, 10, 'AoalsteinnYeung');
+
+INSERT INTO MakeModel
+VALUES ('NOT ', 'KNOWN'), ('Tesla', 'Model S'), ('Ford', 'Taurus'), ('BMW','3 Series'), ('Chevrolet','Malibu'), ('Mercedes-Benz','CLA 250 4MATIC COUPE');
+
+INSERT INTO Vehicle(MakeModelID)
+VALUES(1);
+
+INSERT INTO Vehicle
+VALUES ('647-LKC', 3, 2), ('281-OJE', 5, 3), ('903-KVM', 6, 4), ('124-ETM', 2, 9), ('361-OZP', 4, 2), ('201-NNI', 5, 4), ('579-ALC', 3, 3), ('685-RDX', 4, 9), ('458-JJW', 2, 2), ('662-HSM', 6, 3);
+
+INSERT INTO MessageType
+VALUES ('General Message'), ('Driver Request'), ('User termination request');
 
 --------------------------------------------------------------------------------------------------------------------------------------------------
 -- Debugging / Testing
@@ -187,6 +204,8 @@ SELECT * FROM Ride;
 SELECT * FROM UserType;
 SELECT * FROM [Address];
 SELECT * FROM RideStatus;
+SELECT * FROM AdminMessages;
+SELECT * FROM MessageType;
 
 DELETE FROM Ride WHERE Rider = 1;
 
@@ -227,4 +246,4 @@ UPDATE Ride
 SET Driver = 2
 WHERE RideID = 1
 
-DROP TABLE [Credentials], [Address], Locale, MakeModel, Ride, [User], UserType, Vehicle, Zip, [State], RideStatus;
+DROP TABLE [Credentials], [Address], Locale, MakeModel, Ride, [User], UserType, Vehicle, Zip, [State], RideStatus, AdminMessages, MessageType;

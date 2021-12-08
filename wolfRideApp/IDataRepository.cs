@@ -51,6 +51,9 @@ namespace wolfRideApp
 
         void ViewTerminationRequests(DataGridView datagrid);
 
+        void MakeUserDriver(string username);
+        void MakeUserAdmin(string username);
+
         IEnumerable<Credential> GetCredentials();
 
         void DeleteCredential(string username);

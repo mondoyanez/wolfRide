@@ -137,11 +137,14 @@ namespace wolfRideApp
             // 
             // dataGridViewRides
             // 
+            this.dataGridViewRides.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dataGridViewRides.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridViewRides.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
             this.dataGridViewRides.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewRides.Location = new System.Drawing.Point(88, 149);
+            this.dataGridViewRides.Location = new System.Drawing.Point(33, 149);
             this.dataGridViewRides.Name = "dataGridViewRides";
             this.dataGridViewRides.RowTemplate.Height = 25;
-            this.dataGridViewRides.Size = new System.Drawing.Size(450, 150);
+            this.dataGridViewRides.Size = new System.Drawing.Size(541, 192);
             this.dataGridViewRides.TabIndex = 9;
             this.dataGridViewRides.Visible = false;
             // 

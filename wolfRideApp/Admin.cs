@@ -71,5 +71,17 @@ namespace wolfRideApp
             var database = new SqlServerDataRepository();
             database.ViewTerminationRequests(dataGridView);
         }
+
+        private void btnMakeDriver_Click(object sender, EventArgs e)
+        {
+            AddDriver d = new AddDriver();
+            d.ShowDialog();
+        }
+
+        private void btnMakeAdmin_Click(object sender, EventArgs e)
+        {
+            AddAdmin a = new AddAdmin();
+            a.ShowDialog();
+        }
     }
 }

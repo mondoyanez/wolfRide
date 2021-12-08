@@ -769,7 +769,7 @@ namespace wolfRideApp
             var command = new SqlCommand();
             command.Connection = connection;
 
-            command.CommandText = "SELECT U.FullName AS 'Full Name', A.[Message] FROM AdminMessages AS A " +
+            command.CommandText = "SELECT U.FullName AS 'Full Name', A.[Message], U.CredentialsID AS 'Username' FROM AdminMessages AS A " +
                 "INNER JOIN [User] AS U ON A.Messenger = U.UserID " + "WHERE A.MessageTypeID = 2";
 
             var adpt = new SqlDataAdapter(command);
@@ -837,7 +837,7 @@ namespace wolfRideApp
             var command = new SqlCommand();
             command.Connection = connection;
 
-            command.CommandText = "SELECT FullName AS 'Full Name', Email, PhoneNumber, Balance AS 'Phone Number' FROM [User] WHERE UserID > 1";
+            command.CommandText = "SELECT FullName AS 'Full Name', Email, PhoneNumber, CredentialsID AS 'Username', Balance AS 'Phone Number' FROM [User] WHERE UserID > 1";
 
             var adpt = new SqlDataAdapter(command);
             var dt = new DataTable();
@@ -870,7 +870,7 @@ namespace wolfRideApp
             var command = new SqlCommand();
             command.Connection = connection;
 
-            command.CommandText = "SELECT U.FullName AS 'Full Name', A.[Message] FROM AdminMessages AS A " +
+            command.CommandText = "SELECT U.FullName AS 'Full Name', A.[Message], U.CredentialsID AS 'Username' FROM AdminMessages AS A " +
                 "INNER JOIN [User] AS U ON A.Messenger = U.UserID ";
 
             var adpt = new SqlDataAdapter(command);
@@ -894,6 +894,59 @@ namespace wolfRideApp
             var dt = new DataTable();
             adpt.Fill(dt);
             datagrid.DataSource = dt;
+        }
+
+        public void MakeUserDriver(string username)
+        {
+            if(isDriver(username))
+            {
+                MessageBox.Show("User is already a driver.");
+            }
+            else
+            {
+                var connection = new SqlConnection(_connectionString);
+                connection.Open();
+
+                var command = new SqlCommand();
+                command.Connection = connection;
+
+                var PmtrUsername = new SqlParameter("@username", SqlDbType.VarChar);
+                PmtrUsername.Direction = ParameterDirection.Input;
+
+                command.Parameters.Add(PmtrUsername);
+                PmtrUsername.Value = username;
+
+                command.CommandText = "UPDATE [User] SET UserTypeID = UserTypeID + 2 WHERE CredentialsID = @username";
+                command.ExecuteNonQuery();
+
+                MessageBox.Show("User was successfully made a driver");
+            }
+        }
+        public void MakeUserAdmin(string username)
+        {
+            if (isAdmin(username))
+            {
+                MessageBox.Show("User is already an admin.");
+            }
+            else
+            {
+                var connection = new SqlConnection(_connectionString);
+                connection.Open();
+
+                var command = new SqlCommand();
+                command.Connection = connection;
+
+                var PmtrUsername = new SqlParameter("@username", SqlDbType.VarChar);
+                PmtrUsername.Direction = ParameterDirection.Input;
+
+                command.Parameters.Add(PmtrUsername);
+                PmtrUsername.Value = username;
+
+                command.CommandText = "UPDATE [User] SET UserTypeID = UserTypeID + 4 WHERE CredentialsID = @username";
+                command.ExecuteNonQuery();
+
+                MessageBox.Show("User was successfully made an admin");
+            }
         }
     }
 }

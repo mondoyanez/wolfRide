@@ -192,6 +192,10 @@ UPDATE Ride
 SET RideStatus = 2
 WHERE RideID = 5;
 
+UPDATE [User]
+SET UserTypeID = UserTypeID - 2
+WHERE CredentialsID = 'AnnetteWhitney';
+
 SELECT * FROM [State];
 SELECT * FROM Locale;
 SELECT * FROM Zip;

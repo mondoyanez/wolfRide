@@ -77,5 +77,33 @@ namespace wolfRideApp
                 MessageBox.Show("SORRY YOU ARE NOT REGISTERED AS A DRIVER PLEASE APPLY TO BE ONE IF YOU ARE INTERESTED.");
             }
         }
+
+        private void btnApplyDrive_Click(object sender, EventArgs e)
+        {
+            var database = new SqlServerDataRepository();
+            database.DriverApply(txtName.Text);
+        }
+
+        private void btnContact_Click(object sender, EventArgs e)
+        {
+            AdminSupport a = new AdminSupport(txtName.Text);
+            a.ShowDialog();
+        }
+
+        private void btnAdmin_Click(object sender, EventArgs e)
+        {
+            var database = new SqlServerDataRepository();
+            if (database.isAdmin(txtName.Text))
+            {
+                this.Hide();
+                Admin a = new Admin(txtName.Text);
+                a.ShowDialog();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Access Denied, you are not an Admin!");
+            }
+        }
     }
 }

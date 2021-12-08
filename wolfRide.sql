@@ -143,8 +143,8 @@ VALUES ('Armando Yanez', '847-364-4431', 'armandoyanez@yahoo.com', 200, 7, 1, 'm
 INSERT INTO MakeModel
 VALUES ('NOT ', 'KNOWN'), ('Tesla', 'Model S'), ('Ford', 'Taurus'), ('BMW','3 Series'), ('Chevrolet','Malibu'), ('Mercedes-Benz','CLA 250 4MATIC COUPE');
 
-INSERT INTO Vehicle(MakeModelID)
-VALUES(1);
+INSERT INTO Vehicle(MakeModelID, UserID)
+VALUES(1, 1);
 
 INSERT INTO Vehicle
 VALUES ('647-LKC', 3, 2), ('281-OJE', 5, 3), ('903-KVM', 6, 4), ('124-ETM', 2, 9), ('361-OZP', 4, 2), ('201-NNI', 5, 4), ('579-ALC', 3, 3), ('685-RDX', 4, 9), ('458-JJW', 2, 2), ('662-HSM', 6, 3);
@@ -178,16 +178,15 @@ DELETE FROM [Address] WHERE Line1 = '2389 NE Lafayette Ave';
 DELETE FROM [User] WHERE FullName = 'Armando Yanez';
 */
 
-
-INSERT INTO Ride
-VALUES (2, DATEADD(MINUTE, 30, GETDATE()), DATEADD(MINUTE, 15, GETDATE()), 'Western Oregon University- Math Center', 1, 11, 11, 1);
+INSERT INTO Ride(NumOfPassengers, Destination, Rider, Driver, VehicleID, RideStatus)
+VALUES (2, 'Western Oregon University- Math Center', 1, 11, 11, 2);
 
 INSERT INTO Ride(NumOfPassengers, EstimatedTimeOfArrival, PickupTime, Destination, Rider, RideStatus)
 VALUES (2, DATEADD(MINUTE, 30, GETDATE()), DATEADD(MINUTE, 15, GETDATE()), 'Western Oregon University- Math Center', 4, 1);
 
 UPDATE Ride
-SET Driver = 5, VehicleID = 4
-WHERE RideID = 5;
+SET Driver = 3, VehicleID = 6
+WHERE RideID = 1;
 
 UPDATE Ride
 SET RideStatus = 2
@@ -196,54 +195,18 @@ WHERE RideID = 5;
 SELECT * FROM [State];
 SELECT * FROM Locale;
 SELECT * FROM Zip;
-SELECT * FROM MakeModel;
-SELECT * FROM Vehicle;
 SELECT * FROM Credentials;
-SELECT * FROM [User];
+SELECT * FROM Vehicle;
+SELECT * FROM MakeModel;
 SELECT * FROM Ride;
-SELECT * FROM UserType;
 SELECT * FROM [Address];
 SELECT * FROM RideStatus;
+SELECT * FROM UserType;
+SELECT * FROM [User];
 SELECT * FROM AdminMessages;
 SELECT * FROM MessageType;
 
-DELETE FROM Ride WHERE Rider = 1;
-
-SELECT U.FullName AS 'Driver', M.Make + ' ' + M.Model AS 'Car', PickupTime, EstimatedTimeOfArrival, Destination  FROM Ride AS R
-INNER JOIN [User] AS U ON R.Driver = U.UserID
-INNER JOIN [User] AS U2 ON R.Rider = U2.UserID
-INNER JOIN Vehicle AS V ON R.VehicleID = V.VehicleID
-INNER JOIN MakeModel AS M ON V.MakeModelID = M.MakeModelID
-WHERE R.RideStatus <> 3 AND U2.CredentialsID = 'mondoyanez'
-
-SELECT U2.FullName AS 'Rider Name', R.NumOfPassengers AS '# of Passengers', R.PickupTime AS 'Pickup Time', R.EstimatedTimeOfArrival AS 'Estimated Time of Arrival', R.Destination FROM Ride AS R
-INNER JOIN [User] AS U1 ON R.Driver = U1.UserID
-INNER JOIN [User] AS U2 ON R.Rider = U2.UserID
-WHERE U1.CredentialsID = 'Peteparker';
-
-SELECT U.FullName AS 'Rider', PickupTime, EstimatedTimeOfArrival, Destination  FROM Ride AS R
-INNER JOIN [User] AS U ON R.Rider = U.UserID
---U.CredentialsID = @credentialID
-
-SELECT *  FROM Ride AS R
-INNER JOIN [User] AS U1 ON R.Rider = U1.UserID
-INNER JOIN [User] AS U2 ON R.Driver = U2.UserID
-WHERE U2.UserID = 2
---U.CredentialsID = @credentialID
-
-SELECT Balance FROM [User]
-WHERE CredentialsID = 'mondoyanez';
-
-UPDATE [User]
-SET Balance = 0
-WHERE FullName = 'Armando Yanez' AND CredentialsID = 'mondoyanez';
-
-UPDATE Ride
-SET RideStatus = 2
-WHERE RideID = 1;
-
-UPDATE Ride
-SET Driver = 2
-WHERE RideID = 1
+SELECT FullName AS 'Full Name', Email, PhoneNumber, Balance AS 'Phone Number' FROM [User]
+WHERE UserID > 1
 
 DROP TABLE [Credentials], [Address], Locale, MakeModel, Ride, [User], UserType, Vehicle, Zip, [State], RideStatus, AdminMessages, MessageType;

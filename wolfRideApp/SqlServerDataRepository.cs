@@ -461,7 +461,8 @@ namespace wolfRideApp
                 PmtrVehicle.Value = 1;
                 PmtrRideStatus.Value = 1;
 
-                command.CommandText = "INSERT INTO Ride VALUES(@passengers, DATEADD(MINUTE, 30, GETDATE()), DATEADD(MINUTE, 15, GETDATE()), @destination, @rider, @driver, @vehicle, @rideStatus)";
+                command.CommandText = "INSERT INTO Ride(NumOfPassengers, Destination, Rider, Driver, VehicleID, RideStatus) " +
+                    "VALUES(@passengers, @destination, @rider, @driver, @vehicle, @rideStatus)";
                 command.ExecuteNonQuery();
             }
             else
@@ -478,15 +479,31 @@ namespace wolfRideApp
             var command = new SqlCommand();
             command.Connection = connection;
 
+            string driverCredString = "0";
+            var PmtrDriverCredtialID = new SqlParameter("@driverCredID", SqlDbType.VarChar);
+            PmtrDriverCredtialID.Size = 256;
+            PmtrDriverCredtialID.Direction = ParameterDirection.Output;
+
+            command.Parameters.Add(PmtrDriverCredtialID);
+            PmtrDriverCredtialID.Value = driverCredString;
+
+            command.CommandText = "SELECT @driverCredID = U.CredentialsID FROM [User] AS U INNER JOIN Ride AS R ON R.Driver = U.UserID";
+            command.ExecuteNonQuery();
+
+            driverCredString = PmtrDriverCredtialID.Value.ToString();
+
+            // get current rides
             var PmtrCredentialID = new SqlParameter("@credentialID", SqlDbType.VarChar);
             PmtrCredentialID.Direction = ParameterDirection.Input;
+
+            PmtrDriverCredtialID.Direction = ParameterDirection.Input;
             
             command.Parameters.Add(PmtrCredentialID);
             PmtrCredentialID.Value = name;
 
             command.CommandText = "SELECT U.FullName AS 'Driver', M.Make + ' ' + M.Model AS 'Car', PickupTime, EstimatedTimeOfArrival, Destination  FROM Ride AS R " +
                 "INNER JOIN [User] AS U ON R.Driver = U.UserID " + "INNER JOIN [User] AS U2 ON R.Rider = U2.UserID " + "INNER JOIN Vehicle AS V ON R.VehicleID = V.VehicleID " + 
-                "INNER JOIN MakeModel AS M ON V.MakeModelID = M.MakeModelID " + "WHERE R.RideStatus <> 3 AND U2.CredentialsID = @credentialID";
+                "INNER JOIN MakeModel AS M ON V.MakeModelID = M.MakeModelID " + "WHERE R.RideStatus <> 3 AND U2.CredentialsID = @credentialID AND U.CredentialsID = @driverCredID";
 
             var adpt = new SqlDataAdapter(command);
             var dt = new DataTable();
@@ -525,9 +542,22 @@ namespace wolfRideApp
             userUserTypeIDString = PmtrUserTypeID.Value.ToString();
             var userTypeID = Convert.ToInt32(userUserTypeIDString);
 
-            if (userTypeID > 1)
+            switch (userTypeID)
             {
-                driver = true;
+                case 2:
+                    driver = true;
+                    break;
+                case 3:
+                    driver = true;
+                    break;
+                case 6:
+                    driver = true;
+                    break;
+                case 7:
+                    driver = true;
+                    break;
+                default:
+                    break;
             }
 
             return driver;
@@ -567,6 +597,298 @@ namespace wolfRideApp
             command.CommandText = "SELECT U2.FullName AS 'Rider Name', R.NumOfPassengers AS '# of Passengers', R.PickupTime AS 'Pickup Time', " +
                 "R.EstimatedTimeOfArrival AS 'Estimated Time of Arrival', R.Destination FROM Ride AS R " + "INNER JOIN [User] AS U1 ON R.Driver = U1.UserID " +
                 "INNER JOIN [User] AS U2 ON R.Rider = U2.UserID " + "WHERE U1.CredentialsID = @credentialID";
+
+            var adpt = new SqlDataAdapter(command);
+            var dt = new DataTable();
+            adpt.Fill(dt);
+            datagrid.DataSource = dt;
+        }
+
+        public void DriverApply(string name)
+        {
+            if (!isDriver(name))
+            {
+                var connection = new SqlConnection(_connectionString);
+                connection.Open();
+
+                var command = new SqlCommand();
+                command.Connection = connection;
+
+                // Get userID value
+                string userUserIDString = "0";
+                var PmtrUserID = new SqlParameter("@userID", SqlDbType.Int);
+                PmtrUserID.Direction = ParameterDirection.Output;
+
+                var PmtrUserCredentialID = new SqlParameter("@userCredentialID", SqlDbType.VarChar);
+                PmtrUserCredentialID.Direction = ParameterDirection.Input;
+
+                command.Parameters.Add(PmtrUserID);
+                command.Parameters.Add(PmtrUserCredentialID);
+
+                PmtrUserID.Value = userUserIDString;
+                PmtrUserCredentialID.Value = name;
+
+                command.CommandText = "SELECT @userID = UserID FROM [User] WHERE CredentialsID = @userCredentialID";
+                command.ExecuteNonQuery();
+
+                userUserIDString = PmtrUserID.Value.ToString();
+                var userID = Convert.ToInt32(userUserIDString);
+
+                // Insert message into AdminMessages Table
+
+                var PmtrMessenger = new SqlParameter("@messenger", SqlDbType.Int);
+                PmtrMessenger.Direction = ParameterDirection.Input;
+
+                command.Parameters.Add(PmtrMessenger);
+
+
+                PmtrMessenger.Value = userID;
+
+                // check if user has already requested to be a driver
+                string userExistString = "-1";
+                var PmtrUserExist = new SqlParameter("@userExist", SqlDbType.Int);
+                PmtrUserExist.Direction = ParameterDirection.Output;
+
+                command.Parameters.Add(PmtrUserExist);
+                PmtrUserExist.Value = userExistString;
+
+                command.CommandText = "SELECT @userExist = MessageID FROM AdminMessages WHERE Messenger = @messenger AND MessageTypeID = 2";
+                command.ExecuteNonQuery();
+
+                userExistString = PmtrUserExist.Value.ToString();
+                                
+                if (userExistString.Equals(String.Empty))
+                {
+                    command.CommandText = "INSERT INTO AdminMessages(MessageTypeID, Messenger) VALUES(2, @messenger)";
+                    command.ExecuteNonQuery();
+
+                    MessageBox.Show("Your request has been sent");
+                }
+                else
+                {
+                    MessageBox.Show("You have already sent a request to be a driver.");
+                }
+
+                
+            }
+            else
+            {
+                MessageBox.Show("Can not apply to be a driver because you are already a driver.");
+            }
+        }
+
+        public void ContactAdmin(string name, string message)
+        {
+            var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            var command = new SqlCommand();
+            command.Connection = connection;
+
+            // Get userID value
+            string userUserIDString = "0";
+            var PmtrUserID = new SqlParameter("@userID", SqlDbType.Int);
+            PmtrUserID.Direction = ParameterDirection.Output;
+
+            var PmtrUserCredentialID = new SqlParameter("@userCredentialID", SqlDbType.VarChar);
+            PmtrUserCredentialID.Direction = ParameterDirection.Input;
+
+            command.Parameters.Add(PmtrUserID);
+            command.Parameters.Add(PmtrUserCredentialID);
+
+            PmtrUserID.Value = userUserIDString;
+            PmtrUserCredentialID.Value = name;
+
+            command.CommandText = "SELECT @userID = UserID FROM [User] WHERE CredentialsID = @userCredentialID";
+            command.ExecuteNonQuery();
+
+            userUserIDString = PmtrUserID.Value.ToString();
+            var userID = Convert.ToInt32(userUserIDString);
+
+            // Insert message to AdminMessages Table
+            var PmtrMessenger = new SqlParameter("@messenger", SqlDbType.Int);
+            PmtrMessenger.Direction = ParameterDirection.Input;
+
+            var PmtrMessage = new SqlParameter("@message", SqlDbType.VarChar);
+            PmtrMessage.Direction = ParameterDirection.Input;
+
+            command.Parameters.Add(PmtrMessenger);
+            command.Parameters.Add(PmtrMessage);
+
+            PmtrMessenger.Value = userID;
+            PmtrMessage.Value = message;
+
+            command.CommandText = "INSERT INTO AdminMessages VALUES(@message, 1, @messenger)";
+            command.ExecuteNonQuery();
+
+            MessageBox.Show("Your message has been sent");
+        }
+
+        public bool isAdmin(string name)
+        {
+            bool admin = false;
+
+            GetCredential(name);
+
+            var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            var command = new SqlCommand();
+            command.Connection = connection;
+
+            string userUserTypeIDString = "0";
+            var PmtrUserTypeID = new SqlParameter("@userTypeID", SqlDbType.Int);
+            PmtrUserTypeID.Direction = ParameterDirection.Output;
+
+            var PmtrUserCredentialID = new SqlParameter("@userCredentialID", SqlDbType.VarChar);
+            PmtrUserCredentialID.Direction = ParameterDirection.Input;
+
+            command.Parameters.Add(PmtrUserTypeID);
+            command.Parameters.Add(PmtrUserCredentialID);
+
+            PmtrUserTypeID.Value = userUserTypeIDString;
+            PmtrUserCredentialID.Value = name;
+
+            command.CommandText = "SELECT @userTypeID = UserTypeID FROM [User] WHERE CredentialsID = @userCredentialID";
+            command.ExecuteNonQuery();
+
+            userUserTypeIDString = PmtrUserTypeID.Value.ToString();
+            var userTypeID = Convert.ToInt32(userUserTypeIDString);
+
+            if (userTypeID > 3)
+                admin = true;
+
+            return admin;
+        }
+
+        public void ViewDriverRequests(DataGridView datagrid)
+        {
+            var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            var command = new SqlCommand();
+            command.Connection = connection;
+
+            command.CommandText = "SELECT U.FullName AS 'Full Name', A.[Message] FROM AdminMessages AS A " +
+                "INNER JOIN [User] AS U ON A.Messenger = U.UserID " + "WHERE A.MessageTypeID = 2";
+
+            var adpt = new SqlDataAdapter(command);
+            var dt = new DataTable();
+            adpt.Fill(dt);
+            datagrid.DataSource = dt;
+        }
+
+        public void ViewDrivers(DataGridView datagrid)
+        {
+            var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            var command = new SqlCommand();
+            command.Connection = connection;
+
+            command.CommandText = "SELECT FullName AS 'Driver Name', PhoneNumber AS 'Phone Number', Email FROM [User] " +
+                "WHERE UserTypeID = 2 OR UserTypeID = 3 OR UserTypeID = 6 OR UserTypeID = 7";
+
+            var adpt = new SqlDataAdapter(command);
+            var dt = new DataTable();
+            adpt.Fill(dt);
+            datagrid.DataSource = dt;
+        }
+
+        public void ViewPassengers(DataGridView datagrid)
+        {
+            var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            var command = new SqlCommand();
+            command.Connection = connection;
+
+            command.CommandText = "SELECT FullName AS 'Driver Name', PhoneNumber AS 'Phone Number', Email FROM [User] " +
+                "WHERE UserTypeID = 1 OR UserTypeID = 3 OR UserTypeID = 5 OR UserTypeID = 7";
+
+            var adpt = new SqlDataAdapter(command);
+            var dt = new DataTable();
+            adpt.Fill(dt);
+            datagrid.DataSource = dt;
+        }
+
+        public void ViewVehicles(DataGridView datagrid)
+        {
+            var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            var command = new SqlCommand();
+            command.Connection = connection;
+
+            command.CommandText = "SELECT Make + ' ' + Model AS 'Vehicle' FROM MakeModel " +
+                "WHERE MakeModel.MakeModelID > 1";
+
+            var adpt = new SqlDataAdapter(command);
+            var dt = new DataTable();
+            adpt.Fill(dt);
+            datagrid.DataSource = dt;
+        }
+
+        public void ViewAllUsers(DataGridView datagrid)
+        {
+            var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            var command = new SqlCommand();
+            command.Connection = connection;
+
+            command.CommandText = "SELECT FullName AS 'Full Name', Email, PhoneNumber, Balance AS 'Phone Number' FROM [User] WHERE UserID > 1";
+
+            var adpt = new SqlDataAdapter(command);
+            var dt = new DataTable();
+            adpt.Fill(dt);
+            datagrid.DataSource = dt;
+        }
+
+        public void ViewAdmins(DataGridView datagrid)
+        {
+            var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            var command = new SqlCommand();
+            command.Connection = connection;
+
+            command.CommandText = "SELECT FullName AS 'Driver Name', PhoneNumber AS 'Phone Number', Email FROM [User] " +
+                "WHERE UserTypeID > 3";
+
+            var adpt = new SqlDataAdapter(command);
+            var dt = new DataTable();
+            adpt.Fill(dt);
+            datagrid.DataSource = dt;
+        }
+
+        public void ViewMessages(DataGridView datagrid)
+        {
+            var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            var command = new SqlCommand();
+            command.Connection = connection;
+
+            command.CommandText = "SELECT U.FullName AS 'Full Name', A.[Message] FROM AdminMessages AS A " +
+                "INNER JOIN [User] AS U ON A.Messenger = U.UserID ";
+
+            var adpt = new SqlDataAdapter(command);
+            var dt = new DataTable();
+            adpt.Fill(dt);
+            datagrid.DataSource = dt;
+        }
+
+        public void ViewTerminationRequests(DataGridView datagrid)
+        {
+            var connection = new SqlConnection(_connectionString);
+            connection.Open();
+
+            var command = new SqlCommand();
+            command.Connection = connection;
+
+            command.CommandText = "SELECT U.FullName AS 'Full Name', A.[Message] FROM AdminMessages AS A " +
+                "INNER JOIN [User] AS U ON A.Messenger = U.UserID " + "WHERE A.MessageTypeID = 3";
 
             var adpt = new SqlDataAdapter(command);
             var dt = new DataTable();

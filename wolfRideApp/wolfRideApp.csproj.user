@@ -4,6 +4,12 @@
     <Compile Update="addFunds.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Admin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AdminSupport.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="createAccount.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -38,6 +38,7 @@ namespace wolfRideApp
             this.btnSignOut = new System.Windows.Forms.Button();
             this.btnFillRider = new System.Windows.Forms.Button();
             this.btnMyRiders = new System.Windows.Forms.Button();
+            this.btnAdmin = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,7 +54,7 @@ namespace wolfRideApp
             // 
             // btnWaiting
             // 
-            this.btnWaiting.Location = new System.Drawing.Point(28, 60);
+            this.btnWaiting.Location = new System.Drawing.Point(28, 58);
             this.btnWaiting.Name = "btnWaiting";
             this.btnWaiting.Size = new System.Drawing.Size(98, 23);
             this.btnWaiting.TabIndex = 1;
@@ -63,7 +64,7 @@ namespace wolfRideApp
             // 
             // btnAddVehicle
             // 
-            this.btnAddVehicle.Location = new System.Drawing.Point(28, 89);
+            this.btnAddVehicle.Location = new System.Drawing.Point(28, 87);
             this.btnAddVehicle.Name = "btnAddVehicle";
             this.btnAddVehicle.Size = new System.Drawing.Size(98, 23);
             this.btnAddVehicle.TabIndex = 2;
@@ -72,7 +73,7 @@ namespace wolfRideApp
             // 
             // btnRemoveVehicle
             // 
-            this.btnRemoveVehicle.Location = new System.Drawing.Point(28, 118);
+            this.btnRemoveVehicle.Location = new System.Drawing.Point(28, 116);
             this.btnRemoveVehicle.Name = "btnRemoveVehicle";
             this.btnRemoveVehicle.Size = new System.Drawing.Size(98, 23);
             this.btnRemoveVehicle.TabIndex = 3;
@@ -82,16 +83,16 @@ namespace wolfRideApp
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(162, 35);
+            this.dataGridView1.Location = new System.Drawing.Point(162, 58);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(240, 197);
+            this.dataGridView1.Size = new System.Drawing.Size(395, 197);
             this.dataGridView1.TabIndex = 4;
             this.dataGridView1.Visible = false;
             // 
             // btnVehicles
             // 
-            this.btnVehicles.Location = new System.Drawing.Point(28, 147);
+            this.btnVehicles.Location = new System.Drawing.Point(28, 145);
             this.btnVehicles.Name = "btnVehicles";
             this.btnVehicles.Size = new System.Drawing.Size(98, 23);
             this.btnVehicles.TabIndex = 5;
@@ -100,7 +101,7 @@ namespace wolfRideApp
             // 
             // btnSignOut
             // 
-            this.btnSignOut.Location = new System.Drawing.Point(28, 234);
+            this.btnSignOut.Location = new System.Drawing.Point(28, 232);
             this.btnSignOut.Name = "btnSignOut";
             this.btnSignOut.Size = new System.Drawing.Size(98, 23);
             this.btnSignOut.TabIndex = 6;
@@ -110,7 +111,7 @@ namespace wolfRideApp
             // 
             // btnFillRider
             // 
-            this.btnFillRider.Location = new System.Drawing.Point(28, 176);
+            this.btnFillRider.Location = new System.Drawing.Point(28, 174);
             this.btnFillRider.Name = "btnFillRider";
             this.btnFillRider.Size = new System.Drawing.Size(98, 23);
             this.btnFillRider.TabIndex = 7;
@@ -119,7 +120,7 @@ namespace wolfRideApp
             // 
             // btnMyRiders
             // 
-            this.btnMyRiders.Location = new System.Drawing.Point(28, 205);
+            this.btnMyRiders.Location = new System.Drawing.Point(28, 203);
             this.btnMyRiders.Name = "btnMyRiders";
             this.btnMyRiders.Size = new System.Drawing.Size(98, 23);
             this.btnMyRiders.TabIndex = 8;
@@ -127,12 +128,23 @@ namespace wolfRideApp
             this.btnMyRiders.UseVisualStyleBackColor = true;
             this.btnMyRiders.Click += new System.EventHandler(this.btnMyRiders_Click);
             // 
+            // btnAdmin
+            // 
+            this.btnAdmin.Location = new System.Drawing.Point(28, 298);
+            this.btnAdmin.Name = "btnAdmin";
+            this.btnAdmin.Size = new System.Drawing.Size(98, 23);
+            this.btnAdmin.TabIndex = 9;
+            this.btnAdmin.Text = "Admin Mode";
+            this.btnAdmin.UseVisualStyleBackColor = true;
+            this.btnAdmin.Click += new System.EventHandler(this.btnAdmin_Click);
+            // 
             // Driver
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(446, 289);
+            this.ClientSize = new System.Drawing.Size(591, 333);
+            this.Controls.Add(this.btnAdmin);
             this.Controls.Add(this.btnMyRiders);
             this.Controls.Add(this.btnFillRider);
             this.Controls.Add(this.btnSignOut);
@@ -161,5 +173,6 @@ namespace wolfRideApp
         private System.Windows.Forms.Button btnSignOut;
         private System.Windows.Forms.Button btnFillRider;
         private System.Windows.Forms.Button btnMyRiders;
+        private System.Windows.Forms.Button btnAdmin;
     }
 }

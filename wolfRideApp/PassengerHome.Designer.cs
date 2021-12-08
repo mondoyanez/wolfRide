@@ -41,6 +41,7 @@ namespace wolfRideApp
             this.dataGridViewRides = new System.Windows.Forms.DataGridView();
             this.txtCurrentRides = new System.Windows.Forms.Label();
             this.btnDrive = new System.Windows.Forms.Button();
+            this.btnAdmin = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRides)).BeginInit();
             this.SuspendLayout();
             // 
@@ -76,21 +77,23 @@ namespace wolfRideApp
             // 
             // btnApplyDrive
             // 
-            this.btnApplyDrive.Location = new System.Drawing.Point(192, 374);
+            this.btnApplyDrive.Location = new System.Drawing.Point(261, 374);
             this.btnApplyDrive.Name = "btnApplyDrive";
             this.btnApplyDrive.Size = new System.Drawing.Size(113, 23);
             this.btnApplyDrive.TabIndex = 3;
             this.btnApplyDrive.Text = "Apply To Be Driver";
             this.btnApplyDrive.UseVisualStyleBackColor = true;
+            this.btnApplyDrive.Click += new System.EventHandler(this.btnApplyDrive_Click);
             // 
             // btnContact
             // 
-            this.btnContact.Location = new System.Drawing.Point(32, 374);
+            this.btnContact.Location = new System.Drawing.Point(143, 374);
             this.btnContact.Name = "btnContact";
             this.btnContact.Size = new System.Drawing.Size(112, 23);
             this.btnContact.TabIndex = 4;
             this.btnContact.Text = "Contact Admin";
             this.btnContact.UseVisualStyleBackColor = true;
+            this.btnContact.Click += new System.EventHandler(this.btnContact_Click);
             // 
             // txtWelcome
             // 
@@ -116,7 +119,7 @@ namespace wolfRideApp
             // 
             this.txtName.AutoSize = true;
             this.txtName.Font = new System.Drawing.Font("Georgia", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.txtName.Location = new System.Drawing.Point(238, 60);
+            this.txtName.Location = new System.Drawing.Point(201, 59);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(95, 31);
             this.txtName.TabIndex = 7;
@@ -155,7 +158,7 @@ namespace wolfRideApp
             // 
             // btnDrive
             // 
-            this.btnDrive.Location = new System.Drawing.Point(342, 374);
+            this.btnDrive.Location = new System.Drawing.Point(380, 374);
             this.btnDrive.Name = "btnDrive";
             this.btnDrive.Size = new System.Drawing.Size(113, 23);
             this.btnDrive.TabIndex = 11;
@@ -163,12 +166,23 @@ namespace wolfRideApp
             this.btnDrive.UseVisualStyleBackColor = true;
             this.btnDrive.Click += new System.EventHandler(this.btnDrive_Click);
             // 
+            // btnAdmin
+            // 
+            this.btnAdmin.Location = new System.Drawing.Point(25, 374);
+            this.btnAdmin.Name = "btnAdmin";
+            this.btnAdmin.Size = new System.Drawing.Size(112, 23);
+            this.btnAdmin.TabIndex = 12;
+            this.btnAdmin.Text = "Admin Mode";
+            this.btnAdmin.UseVisualStyleBackColor = true;
+            this.btnAdmin.Click += new System.EventHandler(this.btnAdmin_Click);
+            // 
             // PassengerHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(605, 409);
+            this.Controls.Add(this.btnAdmin);
             this.Controls.Add(this.btnDrive);
             this.Controls.Add(this.txtCurrentRides);
             this.Controls.Add(this.dataGridViewRides);
@@ -204,5 +218,6 @@ namespace wolfRideApp
         private System.Windows.Forms.DataGridView dataGridViewRides;
         private System.Windows.Forms.Label txtCurrentRides;
         private System.Windows.Forms.Button btnDrive;
+        private System.Windows.Forms.Button btnAdmin;
     }
 }

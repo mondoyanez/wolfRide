@@ -13,25 +13,14 @@ namespace wolfRideApp
     public partial class Driver : Form
     {
         public string username = "name";
-        public string[] cars = new string[10];
         public Driver()
         {
-            for (int i = 0; i < cars.Length; i++)
-            {
-                cars[i] = "car";
-            }
             InitializeComponent();
         }
 
         public Driver(string newName)
         {
             username = newName;
-
-            for (int i = 0; i < cars.Length; i++)
-            {
-                cars[i] = "car";
-            }
-
             InitializeComponent();
         }
 
@@ -55,6 +44,22 @@ namespace wolfRideApp
             var database = new SqlServerDataRepository();
             database.MyRiders(username, dataGridView1);
             dataGridView1.Show();
+        }
+
+        private void btnAdmin_Click(object sender, EventArgs e)
+        {
+            var database = new SqlServerDataRepository();
+            if (database.isAdmin(username))
+            {
+                this.Hide();
+                Admin a = new Admin(username);
+                a.ShowDialog();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Access Denied, you are not an Admin!");
+            }
         }
     }
 }

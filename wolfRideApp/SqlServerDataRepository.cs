@@ -365,27 +365,37 @@ namespace wolfRideApp
 
         public void AddFunds(string username, decimal amount)
         {
-            var connection = new SqlConnection(_connectionString);
-            connection.Open();
+            if(amount >= 0)
+            {
+                var connection = new SqlConnection(_connectionString);
+                connection.Open();
 
-            var command = new SqlCommand();
-            command.Connection = connection;
+                var command = new SqlCommand();
+                command.Connection = connection;
 
-            var PmtrBalance = new SqlParameter("@newBalance", SqlDbType.Money);
-            PmtrBalance.Direction = ParameterDirection.Input;
+                var PmtrBalance = new SqlParameter("@newBalance", SqlDbType.Money);
+                PmtrBalance.Direction = ParameterDirection.Input;
 
-            var PmtrUserName = new SqlParameter("@userName", SqlDbType.VarChar);
-            PmtrUserName.Direction = ParameterDirection.Input;
+                var PmtrUserName = new SqlParameter("@userName", SqlDbType.VarChar);
+                PmtrUserName.Direction = ParameterDirection.Input;
 
-            command.Parameters.Add(PmtrBalance);
-            command.Parameters.Add(PmtrUserName);
+                command.Parameters.Add(PmtrBalance);
+                command.Parameters.Add(PmtrUserName);
 
-            PmtrBalance.Value = amount;
-            PmtrUserName.Value = username;
+                PmtrBalance.Value = amount;
+                PmtrUserName.Value = username;
 
 
-            command.CommandText = "UPDATE [User] SET Balance = @newBalance WHERE CredentialsID = @userName";
-            command.ExecuteNonQuery();
+                command.CommandText = "UPDATE [User] SET Balance = Balance + @newBalance WHERE CredentialsID = @userName";
+                command.ExecuteNonQuery();
+
+                MessageBox.Show("Funds succesfully added");
+            }
+            else
+            {
+                MessageBox.Show("Invalid Input please try agin");
+            }
+            
         }
 
         public void RequestRide(string username, string destination, int passengers)
@@ -478,7 +488,7 @@ namespace wolfRideApp
 
             var command = new SqlCommand();
             command.Connection = connection;
-
+            /*
             string driverCredString = "0";
             var PmtrDriverCredtialID = new SqlParameter("@driverCredID", SqlDbType.VarChar);
             PmtrDriverCredtialID.Size = 256;
@@ -490,20 +500,20 @@ namespace wolfRideApp
             command.CommandText = "SELECT @driverCredID = U.CredentialsID FROM [User] AS U INNER JOIN Ride AS R ON R.Driver = U.UserID";
             command.ExecuteNonQuery();
 
-            driverCredString = PmtrDriverCredtialID.Value.ToString();
+            driverCredString = PmtrDriverCredtialID.Value.ToString();*/
 
             // get current rides
             var PmtrCredentialID = new SqlParameter("@credentialID", SqlDbType.VarChar);
             PmtrCredentialID.Direction = ParameterDirection.Input;
 
-            PmtrDriverCredtialID.Direction = ParameterDirection.Input;
+            //PmtrDriverCredtialID.Direction = ParameterDirection.Input;
             
             command.Parameters.Add(PmtrCredentialID);
             PmtrCredentialID.Value = name;
 
             command.CommandText = "SELECT U.FullName AS 'Driver', M.Make + ' ' + M.Model AS 'Car', PickupTime, EstimatedTimeOfArrival, Destination  FROM Ride AS R " +
                 "INNER JOIN [User] AS U ON R.Driver = U.UserID " + "INNER JOIN [User] AS U2 ON R.Rider = U2.UserID " + "INNER JOIN Vehicle AS V ON R.VehicleID = V.VehicleID " + 
-                "INNER JOIN MakeModel AS M ON V.MakeModelID = M.MakeModelID " + "WHERE R.RideStatus <> 3 AND U2.CredentialsID = @credentialID AND U.CredentialsID = @driverCredID";
+                "INNER JOIN MakeModel AS M ON V.MakeModelID = M.MakeModelID " + "WHERE R.RideStatus <> 3 AND U2.CredentialsID = @credentialID";
 
             var adpt = new SqlDataAdapter(command);
             var dt = new DataTable();

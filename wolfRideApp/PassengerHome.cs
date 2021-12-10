@@ -105,5 +105,20 @@ namespace wolfRideApp
                 MessageBox.Show("Access Denied, you are not an Admin!");
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var database = new SqlServerDataRepository();
+            database.PastRides(txtName.Text, dataGridViewRides);
+
+            txtCurrentRides.Show();
+            dataGridViewRides.Show();
+        }
+
+        private void btnTip_Click(object sender, EventArgs e)
+        {
+            TipDriver t = new TipDriver(txtName.Text);
+            t.ShowDialog();
+        }
     }
 }

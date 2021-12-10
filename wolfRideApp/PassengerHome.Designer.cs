@@ -42,6 +42,8 @@ namespace wolfRideApp
             this.txtCurrentRides = new System.Windows.Forms.Label();
             this.btnDrive = new System.Windows.Forms.Button();
             this.btnAdmin = new System.Windows.Forms.Button();
+            this.btnTip = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRides)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,7 +59,7 @@ namespace wolfRideApp
             // 
             // btnPickup
             // 
-            this.btnPickup.Location = new System.Drawing.Point(32, 38);
+            this.btnPickup.Location = new System.Drawing.Point(32, 57);
             this.btnPickup.Name = "btnPickup";
             this.btnPickup.Size = new System.Drawing.Size(113, 23);
             this.btnPickup.TabIndex = 1;
@@ -67,7 +69,7 @@ namespace wolfRideApp
             // 
             // btnBalance
             // 
-            this.btnBalance.Location = new System.Drawing.Point(462, 39);
+            this.btnBalance.Location = new System.Drawing.Point(462, 28);
             this.btnBalance.Name = "btnBalance";
             this.btnBalance.Size = new System.Drawing.Size(112, 23);
             this.btnBalance.TabIndex = 2;
@@ -107,7 +109,7 @@ namespace wolfRideApp
             // 
             // btnCurrentBalance
             // 
-            this.btnCurrentBalance.Location = new System.Drawing.Point(462, 68);
+            this.btnCurrentBalance.Location = new System.Drawing.Point(462, 57);
             this.btnCurrentBalance.Name = "btnCurrentBalance";
             this.btnCurrentBalance.Size = new System.Drawing.Size(112, 23);
             this.btnCurrentBalance.TabIndex = 6;
@@ -127,7 +129,7 @@ namespace wolfRideApp
             // 
             // btnCurrentRides
             // 
-            this.btnCurrentRides.Location = new System.Drawing.Point(33, 68);
+            this.btnCurrentRides.Location = new System.Drawing.Point(33, 87);
             this.btnCurrentRides.Name = "btnCurrentRides";
             this.btnCurrentRides.Size = new System.Drawing.Size(112, 23);
             this.btnCurrentRides.TabIndex = 8;
@@ -179,12 +181,34 @@ namespace wolfRideApp
             this.btnAdmin.UseVisualStyleBackColor = true;
             this.btnAdmin.Click += new System.EventHandler(this.btnAdmin_Click);
             // 
+            // btnTip
+            // 
+            this.btnTip.Location = new System.Drawing.Point(462, 86);
+            this.btnTip.Name = "btnTip";
+            this.btnTip.Size = new System.Drawing.Size(112, 23);
+            this.btnTip.TabIndex = 13;
+            this.btnTip.Text = "Tip Driver";
+            this.btnTip.UseVisualStyleBackColor = true;
+            this.btnTip.Click += new System.EventHandler(this.btnTip_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(33, 28);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(112, 23);
+            this.button1.TabIndex = 14;
+            this.button1.Text = "Past Rides";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // PassengerHome
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(605, 409);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnTip);
             this.Controls.Add(this.btnAdmin);
             this.Controls.Add(this.btnDrive);
             this.Controls.Add(this.txtCurrentRides);
@@ -222,5 +246,7 @@ namespace wolfRideApp
         private System.Windows.Forms.Label txtCurrentRides;
         private System.Windows.Forms.Button btnDrive;
         private System.Windows.Forms.Button btnAdmin;
+        private System.Windows.Forms.Button btnTip;
+        private System.Windows.Forms.Button button1;
     }
 }

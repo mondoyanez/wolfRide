@@ -91,5 +91,11 @@ namespace wolfRideApp
             f.ShowDialog();
             this.Close();
         }
+
+        private void btnTerminate_Click(object sender, EventArgs e)
+        {
+            TerminateUser t = new TerminateUser();
+            t.ShowDialog();
+        }
     }
 }

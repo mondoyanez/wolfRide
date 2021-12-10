@@ -36,10 +36,12 @@ namespace wolfRideApp
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnVehicles = new System.Windows.Forms.Button();
             this.btnSignOut = new System.Windows.Forms.Button();
-            this.btnFillRide = new System.Windows.Forms.Button();
-            this.btnMyRiders = new System.Windows.Forms.Button();
+            this.btnPickUp = new System.Windows.Forms.Button();
+            this.btnMyPassengers = new System.Windows.Forms.Button();
             this.btnAdmin = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnRidesCompleted = new System.Windows.Forms.Button();
+            this.btnBalance = new System.Windows.Forms.Button();
+            this.btnPassengerHome = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,7 +57,7 @@ namespace wolfRideApp
             // 
             // btnWaiting
             // 
-            this.btnWaiting.Location = new System.Drawing.Point(28, 58);
+            this.btnWaiting.Location = new System.Drawing.Point(28, 64);
             this.btnWaiting.Name = "btnWaiting";
             this.btnWaiting.Size = new System.Drawing.Size(106, 23);
             this.btnWaiting.TabIndex = 1;
@@ -65,21 +67,23 @@ namespace wolfRideApp
             // 
             // btnAddVehicle
             // 
-            this.btnAddVehicle.Location = new System.Drawing.Point(28, 87);
+            this.btnAddVehicle.Location = new System.Drawing.Point(28, 93);
             this.btnAddVehicle.Name = "btnAddVehicle";
             this.btnAddVehicle.Size = new System.Drawing.Size(106, 23);
             this.btnAddVehicle.TabIndex = 2;
             this.btnAddVehicle.Text = "Add Vehicle";
             this.btnAddVehicle.UseVisualStyleBackColor = true;
+            this.btnAddVehicle.Click += new System.EventHandler(this.btnAddVehicle_Click);
             // 
             // btnRemoveVehicle
             // 
-            this.btnRemoveVehicle.Location = new System.Drawing.Point(28, 116);
+            this.btnRemoveVehicle.Location = new System.Drawing.Point(28, 122);
             this.btnRemoveVehicle.Name = "btnRemoveVehicle";
             this.btnRemoveVehicle.Size = new System.Drawing.Size(106, 23);
             this.btnRemoveVehicle.TabIndex = 3;
             this.btnRemoveVehicle.Text = "Remove Vehicle";
             this.btnRemoveVehicle.UseVisualStyleBackColor = true;
+            this.btnRemoveVehicle.Click += new System.EventHandler(this.btnRemoveVehicle_Click);
             // 
             // dataGridView1
             // 
@@ -97,16 +101,17 @@ namespace wolfRideApp
             // 
             // btnVehicles
             // 
-            this.btnVehicles.Location = new System.Drawing.Point(28, 145);
+            this.btnVehicles.Location = new System.Drawing.Point(28, 151);
             this.btnVehicles.Name = "btnVehicles";
             this.btnVehicles.Size = new System.Drawing.Size(106, 23);
             this.btnVehicles.TabIndex = 5;
             this.btnVehicles.Text = "Vehicles";
             this.btnVehicles.UseVisualStyleBackColor = true;
+            this.btnVehicles.Click += new System.EventHandler(this.btnVehicles_Click);
             // 
             // btnSignOut
             // 
-            this.btnSignOut.Location = new System.Drawing.Point(28, 261);
+            this.btnSignOut.Location = new System.Drawing.Point(586, 325);
             this.btnSignOut.Name = "btnSignOut";
             this.btnSignOut.Size = new System.Drawing.Size(106, 23);
             this.btnSignOut.TabIndex = 6;
@@ -114,24 +119,25 @@ namespace wolfRideApp
             this.btnSignOut.UseVisualStyleBackColor = true;
             this.btnSignOut.Click += new System.EventHandler(this.btnSignOut_Click);
             // 
-            // btnFillRide
+            // btnPickUp
             // 
-            this.btnFillRide.Location = new System.Drawing.Point(28, 174);
-            this.btnFillRide.Name = "btnFillRide";
-            this.btnFillRide.Size = new System.Drawing.Size(106, 23);
-            this.btnFillRide.TabIndex = 7;
-            this.btnFillRide.Text = "Fill Ride";
-            this.btnFillRide.UseVisualStyleBackColor = true;
+            this.btnPickUp.Location = new System.Drawing.Point(28, 180);
+            this.btnPickUp.Name = "btnPickUp";
+            this.btnPickUp.Size = new System.Drawing.Size(106, 23);
+            this.btnPickUp.TabIndex = 7;
+            this.btnPickUp.Text = "Pick Up";
+            this.btnPickUp.UseVisualStyleBackColor = true;
+            this.btnPickUp.Click += new System.EventHandler(this.btnPickUp_Click);
             // 
-            // btnMyRiders
+            // btnMyPassengers
             // 
-            this.btnMyRiders.Location = new System.Drawing.Point(28, 203);
-            this.btnMyRiders.Name = "btnMyRiders";
-            this.btnMyRiders.Size = new System.Drawing.Size(106, 23);
-            this.btnMyRiders.TabIndex = 8;
-            this.btnMyRiders.Text = "My Riders";
-            this.btnMyRiders.UseVisualStyleBackColor = true;
-            this.btnMyRiders.Click += new System.EventHandler(this.btnMyRiders_Click);
+            this.btnMyPassengers.Location = new System.Drawing.Point(28, 209);
+            this.btnMyPassengers.Name = "btnMyPassengers";
+            this.btnMyPassengers.Size = new System.Drawing.Size(106, 23);
+            this.btnMyPassengers.TabIndex = 8;
+            this.btnMyPassengers.Text = "Passengers";
+            this.btnMyPassengers.UseVisualStyleBackColor = true;
+            this.btnMyPassengers.Click += new System.EventHandler(this.btnMyRiders_Click);
             // 
             // btnAdmin
             // 
@@ -143,14 +149,35 @@ namespace wolfRideApp
             this.btnAdmin.UseVisualStyleBackColor = true;
             this.btnAdmin.Click += new System.EventHandler(this.btnAdmin_Click);
             // 
-            // button1
+            // btnRidesCompleted
             // 
-            this.button1.Location = new System.Drawing.Point(28, 232);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(106, 23);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Ride Completed";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnRidesCompleted.Location = new System.Drawing.Point(28, 238);
+            this.btnRidesCompleted.Name = "btnRidesCompleted";
+            this.btnRidesCompleted.Size = new System.Drawing.Size(106, 23);
+            this.btnRidesCompleted.TabIndex = 10;
+            this.btnRidesCompleted.Text = "Rides Completed";
+            this.btnRidesCompleted.UseVisualStyleBackColor = true;
+            this.btnRidesCompleted.Click += new System.EventHandler(this.btnRideCompleted_Click);
+            // 
+            // btnBalance
+            // 
+            this.btnBalance.Location = new System.Drawing.Point(28, 268);
+            this.btnBalance.Name = "btnBalance";
+            this.btnBalance.Size = new System.Drawing.Size(106, 23);
+            this.btnBalance.TabIndex = 11;
+            this.btnBalance.Text = "Current Balance";
+            this.btnBalance.UseVisualStyleBackColor = true;
+            this.btnBalance.Click += new System.EventHandler(this.btnBalance_Click);
+            // 
+            // btnPassengerHome
+            // 
+            this.btnPassengerHome.Location = new System.Drawing.Point(304, 325);
+            this.btnPassengerHome.Name = "btnPassengerHome";
+            this.btnPassengerHome.Size = new System.Drawing.Size(106, 23);
+            this.btnPassengerHome.TabIndex = 12;
+            this.btnPassengerHome.Text = "Passenger Home";
+            this.btnPassengerHome.UseVisualStyleBackColor = true;
+            this.btnPassengerHome.Click += new System.EventHandler(this.btnPassengerHome_Click);
             // 
             // Driver
             // 
@@ -158,10 +185,12 @@ namespace wolfRideApp
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(704, 360);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnPassengerHome);
+            this.Controls.Add(this.btnBalance);
+            this.Controls.Add(this.btnRidesCompleted);
             this.Controls.Add(this.btnAdmin);
-            this.Controls.Add(this.btnMyRiders);
-            this.Controls.Add(this.btnFillRide);
+            this.Controls.Add(this.btnMyPassengers);
+            this.Controls.Add(this.btnPickUp);
             this.Controls.Add(this.btnSignOut);
             this.Controls.Add(this.btnVehicles);
             this.Controls.Add(this.dataGridView1);
@@ -186,9 +215,11 @@ namespace wolfRideApp
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button btnVehicles;
         private System.Windows.Forms.Button btnSignOut;
-        private System.Windows.Forms.Button btnFillRide;
-        private System.Windows.Forms.Button btnMyRiders;
+        private System.Windows.Forms.Button btnPickUp;
+        private System.Windows.Forms.Button btnMyPassengers;
         private System.Windows.Forms.Button btnAdmin;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnRidesCompleted;
+        private System.Windows.Forms.Button btnBalance;
+        private System.Windows.Forms.Button btnPassengerHome;
     }
 }

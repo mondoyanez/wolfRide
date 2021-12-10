@@ -156,61 +156,18 @@ VALUES ('General Message'), ('Driver Request'), ('User termination request');
 -- Debugging / Testing
 --------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-/*
---Testing
-
-SELECT * FROM Credentials;
 SELECT * FROM [State];
 SELECT * FROM Locale;
 SELECT * FROM Zip;
-SELECT * FROM [Address];
-SELECT * FROM [User];
-
-SELECT * FROM [Address]
-WHERE Line1 = '230 NW 19th St' AND Line2 = '';
-
-DELETE FROM Credentials WHERE UserName = 'mondoyanez';
-DELETE FROM [State] WHERE [State] = 'NY';
-DELETE FROM Locale WHERE City = 'Manhatten';
-DELETE FROM Zip WHERE ZipCode = 10001;
-DELETE FROM [Address] WHERE Line1 = '2389 NE Lafayette Ave';
-DELETE FROM [User] WHERE FullName = 'Armando Yanez';
-*/
-
-INSERT INTO Ride(NumOfPassengers, Destination, Rider, Driver, VehicleID, RideStatus)
-VALUES (2, 'Western Oregon University- Math Center', 1, 11, 11, 2);
-
-INSERT INTO Ride(NumOfPassengers, EstimatedTimeOfArrival, PickupTime, Destination, Rider, RideStatus)
-VALUES (2, DATEADD(MINUTE, 30, GETDATE()), DATEADD(MINUTE, 15, GETDATE()), 'Western Oregon University- Math Center', 4, 1);
-
-UPDATE Ride
-SET Driver = 3, VehicleID = 6
-WHERE RideID = 1;
-
-UPDATE Ride
-SET RideStatus = 2
-WHERE RideID = 5;
-
-UPDATE [User]
-SET UserTypeID = UserTypeID - 2
-WHERE CredentialsID = 'AnnetteWhitney';
-
-SELECT * FROM [State];
-SELECT * FROM Locale;
-SELECT * FROM Zip;
-SELECT * FROM Credentials;
-SELECT * FROM Vehicle;
-SELECT * FROM MakeModel;
 SELECT * FROM Ride;
+SELECT * FROM Credentials;
+SELECT * FROM [User];
+SELECT * FROM Vehicle;
 SELECT * FROM [Address];
+SELECT * FROM MakeModel;
 SELECT * FROM RideStatus;
 SELECT * FROM UserType;
-SELECT * FROM [User];
 SELECT * FROM AdminMessages;
 SELECT * FROM MessageType;
-
-SELECT FullName AS 'Full Name', Email, PhoneNumber, Balance AS 'Phone Number' FROM [User]
-WHERE UserID > 1
 
 DROP TABLE [Credentials], [Address], Locale, MakeModel, Ride, [User], UserType, Vehicle, Zip, [State], RideStatus, AdminMessages, MessageType;

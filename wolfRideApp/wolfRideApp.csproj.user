@@ -10,6 +10,9 @@
     <Compile Update="addFunds.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="AddVehicle.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Admin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -29,6 +32,21 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="pickUp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="PickUpPassenger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="RemoveVehicle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="RideCompleted.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="TerminateUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="TipDriver.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

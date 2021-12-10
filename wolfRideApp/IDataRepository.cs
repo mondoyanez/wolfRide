@@ -18,10 +18,12 @@ namespace wolfRideApp
         Double GetBalance(string username);
 
         void AddFunds(string username, decimal amount);
+        void TipDriver(string driverUsername, string riderUsername, decimal amount);
 
         void RequestRide(string username, string destination, int passengers);
 
         void getCurrentRide(string username, DataGridView datagrid);
+        void PastRides(string username, DataGridView datagrid);
 
         bool isDriver(string username);
 
@@ -50,9 +52,17 @@ namespace wolfRideApp
         void ViewMessages(DataGridView datagrid);
 
         void ViewTerminationRequests(DataGridView datagrid);
+        void TerminateUser(string username);
 
         void MakeUserDriver(string username);
+
         void MakeUserAdmin(string username);
+
+        void CreateVehicle(string username, string make, string model, string licensePlate);
+        void RemoveVehicle(string licensePlate);
+        void MyVehicles(string name, DataGridView datagrid);
+        void PickUp(string username, int RideID, string LicensePlate);
+        void RideCompleted(string username, int RideID);
 
         IEnumerable<Credential> GetCredentials();
 

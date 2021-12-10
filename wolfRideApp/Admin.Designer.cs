@@ -156,6 +156,7 @@ namespace wolfRideApp
             this.btnTerminate.TabIndex = 9;
             this.btnTerminate.Text = "Terminate User";
             this.btnTerminate.UseVisualStyleBackColor = true;
+            this.btnTerminate.Click += new System.EventHandler(this.btnTerminate_Click);
             // 
             // btnMakeDriver
             // 

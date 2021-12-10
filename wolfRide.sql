@@ -1,5 +1,3 @@
-USE wolfRide;
-
 IF DB_ID('wolfRide') IS NOT NULL
 DROP DATABASE wolfRide;
 GO
@@ -155,7 +153,7 @@ VALUES ('General Message'), ('Driver Request'), ('User termination request');
 --------------------------------------------------------------------------------------------------------------------------------------------------
 -- Debugging / Testing
 --------------------------------------------------------------------------------------------------------------------------------------------------
-
+/*
 SELECT * FROM [State];
 SELECT * FROM Locale;
 SELECT * FROM Zip;
@@ -170,4 +168,4 @@ SELECT * FROM UserType;
 SELECT * FROM AdminMessages;
 SELECT * FROM MessageType;
 
-DROP TABLE [Credentials], [Address], Locale, MakeModel, Ride, [User], UserType, Vehicle, Zip, [State], RideStatus, AdminMessages, MessageType;
+DROP TABLE [Credentials], [Address], Locale, MakeModel, Ride, [User], UserType, Vehicle, Zip, [State], RideStatus, AdminMessages, MessageType;*/

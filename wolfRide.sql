@@ -150,22 +150,3 @@ VALUES ('647-LKC', 3, 2), ('281-OJE', 5, 3), ('903-KVM', 6, 4), ('124-ETM', 2, 9
 INSERT INTO MessageType
 VALUES ('General Message'), ('Driver Request'), ('User termination request');
 
---------------------------------------------------------------------------------------------------------------------------------------------------
--- Debugging / Testing
---------------------------------------------------------------------------------------------------------------------------------------------------
-/*
-SELECT * FROM [State];
-SELECT * FROM Locale;
-SELECT * FROM Zip;
-SELECT * FROM Ride;
-SELECT * FROM Credentials;
-SELECT * FROM [User];
-SELECT * FROM Vehicle;
-SELECT * FROM [Address];
-SELECT * FROM MakeModel;
-SELECT * FROM RideStatus;
-SELECT * FROM UserType;
-SELECT * FROM AdminMessages;
-SELECT * FROM MessageType;
-
-DROP TABLE [Credentials], [Address], Locale, MakeModel, Ride, [User], UserType, Vehicle, Zip, [State], RideStatus, AdminMessages, MessageType;*/

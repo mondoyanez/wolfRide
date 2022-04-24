@@ -454,24 +454,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ayane\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\ayane\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ayane\\Desktop\\work\\School\\Fall 2021\\CS364\\wolfRide\\wolfRideApp\\wolfRideApp.csproj",
+      "projectUniqueName": "C:\\Users\\ayane\\Desktop\\work\\Portfolio\\wolfRide\\wolfRideApp\\wolfRideApp.csproj",
       "projectName": "wolfRideApp",
-      "projectPath": "C:\\Users\\ayane\\Desktop\\work\\School\\Fall 2021\\CS364\\wolfRide\\wolfRideApp\\wolfRideApp.csproj",
+      "projectPath": "C:\\Users\\ayane\\Desktop\\work\\Portfolio\\wolfRide\\wolfRideApp\\wolfRideApp.csproj",
       "packagesPath": "C:\\Users\\ayane\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ayane\\Desktop\\work\\School\\Fall 2021\\CS364\\wolfRide\\wolfRideApp\\obj\\",
+      "outputPath": "C:\\Users\\ayane\\Desktop\\work\\Portfolio\\wolfRide\\wolfRideApp\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
         "C:\\Users\\ayane\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -520,7 +515,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.209\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
